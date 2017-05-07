@@ -3,7 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Support.V7.App;
 
-namespace NotiShare
+namespace NotiShare.Activity
 {
     [Activity(Label = "NotiShare", Theme = "@style/Theme.AppCompat.Light.DarkActionBar",ScreenOrientation = ScreenOrientation.Portrait, MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : AppCompatActivity

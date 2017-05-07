@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Hello">Hello World, Click Me!</string>
-    <string name="ApplicationName">NotiShare</string>
+  <string name="ApplicationName">NotiShare</string>
+  <string name="EnableNotificationSummary">Enable Notification Tracking Service</string>
+  <string name="EnableClipboardSummary">Enable Clipoard Tracking Service</string>
+  <string name="EnableNotificationTitle">Notification Tracking</string>
+  <string name="EnableClipboardTitle">Clipboard Tracking</string>
+  <string name="SettingsTitle">Settings</string>
 </resources>

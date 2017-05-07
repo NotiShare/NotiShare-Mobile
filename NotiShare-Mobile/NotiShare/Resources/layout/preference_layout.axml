@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <CheckBoxPreference
+    android:key="notification"
+    android:summary="@string/EnableNotificationSummary"
+    android:title="@string/EnableNotificationTitle">
+  </CheckBoxPreference>
+  <CheckBoxPreference
+    android:key="clipboard"
+    android:summary="@string/EnableClipboardSummary"
+    android:title="@string/EnableClipboardTitle">
+  </CheckBoxPreference>
+</PreferenceScreen>
