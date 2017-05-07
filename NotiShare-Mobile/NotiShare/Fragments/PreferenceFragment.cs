@@ -11,6 +11,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.Preferences;
+using NotiShare.Services;
 
 namespace NotiShare.Fragments
 {
@@ -35,6 +36,16 @@ namespace NotiShare.Fragments
         public void OnSharedPreferenceChanged(ISharedPreferences sharedPreferences, string key)
         {
             Log.Info("notishare", "preference change");
+            switch (key)
+            {
+                case "notification":
+                    if (sharedPreferences.GetBoolean(key, false))
+                    {
+                        var intent = new Intent(Activity,typeof(NotificationService));
+                        Activity.StartService(intent);
+                    }
+                    break;
+            }
         }
     }
 }

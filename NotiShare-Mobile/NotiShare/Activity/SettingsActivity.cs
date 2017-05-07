@@ -15,7 +15,7 @@ using NotiShare.Fragments;
 
 namespace NotiShare.Activity
 {
-    [Activity(Label = "@string/SettingsTitle",Theme = "@style/Theme.AppCompat.Light.DarkActionBar", ScreenOrientation = ScreenOrientation.Portrait, MainLauncher = true)]
+    [Activity(Theme = "@style/Theme.AppCompat.Light.DarkActionBar", ScreenOrientation = ScreenOrientation.Portrait, MainLauncher = true)]
     public class SettingsActivity : AppCompatActivity
     {
 
@@ -23,6 +23,7 @@ namespace NotiShare.Activity
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.settings_layout);
+            SupportActionBar.Title = Resources.GetString(Resource.String.SettingsTitle);
             var settingFragment = new PreferenceFragment();
             var transaction = FragmentManager.BeginTransaction();
             transaction.Add(Resource.Id.settings_fragment, settingFragment);
