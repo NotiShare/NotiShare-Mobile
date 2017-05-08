@@ -3137,6 +3137,12 @@ namespace NotiShare
 			// aapt resource value: 0x7f09002e
 			public const int EnableNotificationTitle = 2131296302;
 			
+			// aapt resource value: 0x7f090032
+			public const int NotificationDialogMessage = 2131296306;
+			
+			// aapt resource value: 0x7f090031
+			public const int NotificationDialogTitle = 2131296305;
+			
 			// aapt resource value: 0x7f090030
 			public const int SettingsTitle = 2131296304;
 			

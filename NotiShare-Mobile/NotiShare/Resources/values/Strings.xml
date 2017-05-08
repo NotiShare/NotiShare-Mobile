@@ -6,4 +6,6 @@
   <string name="EnableNotificationTitle">Notification Tracking</string>
   <string name="EnableClipboardTitle">Clipboard Tracking</string>
   <string name="SettingsTitle">Settings</string>
+  <string name="NotificationDialogTitle">Notification Access</string>
+  <string name="NotificationDialogMessage">Enable "Notification Access" for this app</string>
 </resources>

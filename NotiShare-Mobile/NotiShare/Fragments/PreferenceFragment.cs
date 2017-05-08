@@ -11,6 +11,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Android.Preferences;
+using Android.Provider;
 using NotiShare.Services;
 
 namespace NotiShare.Fragments
@@ -39,12 +40,36 @@ namespace NotiShare.Fragments
             switch (key)
             {
                 case "notification":
+                    var intent = new Intent(Activity, typeof(NotificationService));
                     if (sharedPreferences.GetBoolean(key, false))
                     {
-                        var intent = new Intent(Activity,typeof(NotificationService));
-                        Activity.StartService(intent);
+                        EnableService(intent);
+                    }
+                    else
+                    {
+                        Activity.StopService(intent);
                     }
                     break;
+            }
+        }
+
+
+
+        private void EnableService(Intent currentIntent)
+        {
+            if (!Settings.Secure.GetString(Activity.ContentResolver, "enabled_notification_listeners")
+                .Contains(Activity.PackageName))
+            {
+                var dialog = new AlertDialog.Builder(Activity);
+                dialog.SetTitle(Resources.GetString(Resource.String.NotificationDialogTitle));
+                dialog.SetMessage(Resources.GetString(Resource.String.NotificationDialogMessage));
+                dialog.SetNegativeButton("OK", (sender, args) =>
+                {
+                    StartActivity(new Intent(Settings.ActionNotificationListenerSettings));
+                    Activity.StartService(currentIntent);
+                });
+                dialog.SetCancelable(true);
+                dialog.Show();
             }
         }
     }
