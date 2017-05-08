@@ -49,6 +49,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.Export" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
@@ -112,6 +113,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activity\RegisterActivity.cs" />
     <Compile Include="Activity\SettingsActivity.cs" />
     <Compile Include="BroadcastReceivers\BootReceiver.cs" />
     <Compile Include="Fragments\PreferenceFragment.cs" />
@@ -132,9 +134,11 @@
     <AndroidResource Include="Resources\layout\settings_layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml">
+    <AndroidResource Include="Resources\layout\Progressbar.axml" />
+    <AndroidResource Include="Resources\layout\login_screen.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\register_layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

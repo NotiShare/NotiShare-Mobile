@@ -15,7 +15,7 @@ using NotiShare.Fragments;
 
 namespace NotiShare.Activity
 {
-    [Activity(Theme = "@style/Theme.AppCompat.Light.DarkActionBar", ScreenOrientation = ScreenOrientation.Portrait, MainLauncher = true)]
+    [Activity(Theme = "@style/Theme.AppCompat.Light.DarkActionBar", ScreenOrientation = ScreenOrientation.Portrait)]
     public class SettingsActivity : AppCompatActivity
     {
 
