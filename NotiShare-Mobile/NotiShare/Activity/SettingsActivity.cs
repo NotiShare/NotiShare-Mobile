@@ -24,10 +24,13 @@ namespace NotiShare.Activity
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.settings_layout);
             SupportActionBar.Title = Resources.GetString(Resource.String.SettingsTitle);
-            var settingFragment = new PreferenceFragment();
-            var transaction = FragmentManager.BeginTransaction();
-            transaction.Add(Resource.Id.settings_fragment, settingFragment);
-            transaction.Commit();
+            if (FragmentManager.FindFragmentById(Resource.Id.settings_fragment) == null)
+            {
+                var settingFragment = new PreferenceFragment();
+                var transaction = FragmentManager.BeginTransaction();
+                transaction.Add(Resource.Id.settings_fragment, settingFragment);
+                transaction.Commit();
+            }
             // Create your application here
         }
     }

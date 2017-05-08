@@ -46,7 +46,12 @@ namespace NotiShare.Services
         public override void OnDestroy()
         {
             base.OnDestroy();
+            if (clipboardManager == null)
+            {
+                clipboardManager = (ClipboardManager) GetSystemService(ClipboardService);
+            }
             clipboardManager.RemovePrimaryClipChangedListener(this);
+            Log.Info(DebugTag, "disabled");
         }
     }
 }
