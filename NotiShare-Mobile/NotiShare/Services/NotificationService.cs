@@ -6,6 +6,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Preferences;
 using Android.Runtime;
 using Android.Service.Notification;
 using Android.Util;
@@ -34,9 +35,20 @@ namespace NotiShare.Services
         public override void OnNotificationPosted(StatusBarNotification sbn)
         {
             base.OnNotificationPosted(sbn);
-            Log.Info(DebugConstant, "post notification");
+            var preference = PreferenceManager.GetDefaultSharedPreferences(Application.Context);
+            if (preference.GetBoolean("notification", false))
+            {
+                Log.Info(DebugConstant, "post notification");
+            }
+            else
+            {
+                Log.Info(DebugConstant, "service is disabled");
+            }
+
         }
 
+
+        
 
         public override void OnNotificationRemoved(StatusBarNotification sbn)
         {
@@ -44,9 +56,16 @@ namespace NotiShare.Services
         }
 
 
+        public override bool StopService(Intent name)
+        {
+            Log.Info(DebugConstant, "Stoped");
+            return base.StopService(name);
+        }
+
         public override void OnDestroy()
         {
             base.OnDestroy();
+            Log.Info(DebugConstant, "stop");
         }
     }
 }

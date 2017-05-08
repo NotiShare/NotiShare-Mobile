@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Util;
+using Android.Views;
+using Android.Widget;
+
+namespace NotiShare.Services
+{
+    [Service(Name = "com.fezz.notishare.ClipboardService")]
+    public class ClipboardService:Service, ClipboardManager.IOnPrimaryClipChangedListener
+    {
+        private ClipboardManager clipboardManager;
+        private const string DebugTag = "notishare_clipboard";
+        public override IBinder OnBind(Intent intent)
+        {
+            return new Binder();
+        }
+
+        public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
+        {
+            return StartCommandResult.Sticky;
+        }
+
+
+        public override void OnCreate()
+        {
+            base.OnCreate();
+            clipboardManager = (ClipboardManager) GetSystemService(ClipboardService);
+            clipboardManager.AddPrimaryClipChangedListener(this);
+        }
+
+        public void OnPrimaryClipChanged()
+        {
+            Log.Info(DebugTag, "ClipboardTaken");
+        }
+
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            clipboardManager.RemovePrimaryClipChangedListener(this);
+        }
+    }
+}

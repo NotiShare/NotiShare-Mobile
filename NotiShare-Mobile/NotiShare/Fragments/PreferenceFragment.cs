@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 
@@ -16,13 +17,16 @@ using NotiShare.Services;
 
 namespace NotiShare.Fragments
 {
-    public class PreferenceFragment : Android.Preferences.PreferenceFragment, ISharedPreferencesOnSharedPreferenceChangeListener
+    public class PreferenceFragment : Android.Preferences.PreferenceFragment, ISharedPreferencesOnSharedPreferenceChangeListener, IDialogInterfaceOnCancelListener
     {
+        private CheckBoxPreference notificationPreference;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             AddPreferencesFromResource(Resource.Layout.preference_layout);
             PreferenceManager.GetDefaultSharedPreferences(Activity).RegisterOnSharedPreferenceChangeListener(this);
+            notificationPreference = (CheckBoxPreference) FindPreference("notification");
             // Create your fragment here
         }
 
@@ -40,14 +44,25 @@ namespace NotiShare.Fragments
             switch (key)
             {
                 case "notification":
-                    var intent = new Intent(Activity, typeof(NotificationService));
+                    var notificationIntent = new Intent(Activity, typeof(NotificationService));
                     if (sharedPreferences.GetBoolean(key, false))
                     {
-                        EnableService(intent);
+                        EnableService(notificationIntent);
                     }
                     else
                     {
-                        Activity.StopService(intent);
+                        Activity.StopService(notificationIntent);
+                    }
+                    break;
+                case "clipboard":
+                    var clipboardIntent = new Intent(Activity, typeof(ClipboardService));
+                    if (sharedPreferences.GetBoolean(key, false))
+                    {
+                        Activity.StartService(clipboardIntent);
+                    }
+                    else
+                    {
+                        Activity.StopService(clipboardIntent);
                     }
                     break;
             }
@@ -69,8 +84,19 @@ namespace NotiShare.Fragments
                     Activity.StartService(currentIntent);
                 });
                 dialog.SetCancelable(true);
-                dialog.Show();
+                dialog.SetOnCancelListener(this);
+                dialog.Show();      
             }
+        }
+
+
+        public void OnCancel(IDialogInterface dialog)
+        {
+            var preferenceManager = PreferenceManager.SharedPreferences;
+            var editor = preferenceManager.Edit();
+            editor.PutBoolean("notification", false);
+            editor.Apply();
+            notificationPreference.Checked = false;
         }
     }
 }

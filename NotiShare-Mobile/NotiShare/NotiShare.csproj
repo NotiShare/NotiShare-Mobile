@@ -113,10 +113,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity\SettingsActivity.cs" />
+    <Compile Include="BroadcastReceivers\BootReceiver.cs" />
     <Compile Include="Fragments\PreferenceFragment.cs" />
     <Compile Include="Activity\MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ClipboardService.cs" />
     <Compile Include="Services\NotificationService.cs" />
   </ItemGroup>
   <ItemGroup>
