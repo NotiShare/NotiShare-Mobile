@@ -41,6 +41,12 @@ namespace NotiShareModel.HttpWorker
             return await PostRequest(loginObject, $"{DefaultUrl}/login");
         }
 
+
+        public async Task<string> RegisterDevice(RegisterDeviceObject device)
+        {
+            return await PostRequest(device, $"{DefaultUrl}/registerDevice");
+        }
+
         private async Task<string> PostRequest<T>(T objectToSend, string url)
         {
             string result;

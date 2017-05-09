@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
+using Android.Webkit;
 using Android.Widget;
 
 namespace NotiShare.Services
@@ -40,7 +41,15 @@ namespace NotiShare.Services
         public void OnPrimaryClipChanged()
         {
             Log.Info(DebugTag, "ClipboardTaken");
+            var data = clipboardManager.PrimaryClip;
+            if (clipboardManager.PrimaryClipDescription.HasMimeType(Android.Content.ClipDescription.MimetypeTextPlain))
+            {
+                var item = data.GetItemAt(0);
+                var text = item.Text;
+            }
+            
         }
+
 
 
         public override void OnDestroy()

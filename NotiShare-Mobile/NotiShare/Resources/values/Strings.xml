@@ -16,4 +16,7 @@
   <string name="EmailError">Invalid Email</string>
   <string name="PasswordLengthError">Password need to be 6-16 characters lenght</string>
   <string name="PasswordsDoNotMatch">Passwords do not match</string>
+  <string name="Clipboard">Clipboard</string>
+  <string name="Action">Choose Action</string>
+  <string name="Logout">Logout</string>
 </resources>

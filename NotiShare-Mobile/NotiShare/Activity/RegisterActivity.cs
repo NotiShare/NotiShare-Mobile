@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using Android.App;
+using Android.Content.PM;
 using Android.OS;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
@@ -15,7 +16,7 @@ using NotiShareModel.HttpWorker;
 
 namespace NotiShare.Activity
 {
-    [Activity(Label = "@string/Register", Theme = "@style/Theme.AppCompat.Light.DarkActionBar")]
+    [Activity(Label = "@string/Register",ScreenOrientation = ScreenOrientation.Portrait, Theme = "@style/Theme.AppCompat.Light.DarkActionBar")]
     public class RegisterActivity : AppCompatActivity
     {
         private TextInputLayout emailLayout, passwordInputLayout, passwordRepeaTextInputLayout;

@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataTypes\LoginObject.cs" />
+    <Compile Include="DataTypes\RegisterDeviceObject.cs" />
     <Compile Include="DataTypes\RegistrationObject.cs" />
     <Compile Include="HttpWorker\HttpWorker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <include
+    android:id="@+id/progressBar"
+    layout="@layout/Progressbar"
+    android:visibility="visible"/>
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:id="@+id/mainLayout"
+    android:visibility="gone">
+    <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/Clipboard">
+    </Button>
+    <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/SettingsTitle">
+    </Button>
+    <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/Logout">
+    </Button>
+  </LinearLayout>
+</RelativeLayout>

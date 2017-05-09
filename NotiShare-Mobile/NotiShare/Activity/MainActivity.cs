@@ -45,6 +45,34 @@ namespace NotiShare.Activity
             // SetContentView (Resource.Layout.Main);
         }
 
+
+        public override async void OnAttachedToWindow()
+        {
+            base.OnAttachedToWindow();
+            var loginObject = CanAuthorize();
+            if (loginObject != null)
+            {
+                var result = await HttpWorker.Instance.Login(loginObject);
+                if (result.Equals("Welcome"))
+                {
+                    var intent = new Intent(this, typeof(AppActivity));
+                    Finish();
+                    StartActivity(intent);
+                }
+                else
+                {
+                    AppHelper.ShowToastText(this, result);
+                    progressBar.Visibility = ViewStates.Gone;
+                    mainLayout.Visibility = ViewStates.Visible;
+                }
+            }
+            else
+            {
+                progressBar.Visibility = ViewStates.Gone;
+                    mainLayout.Visibility = ViewStates.Visible;
+            }
+        }
+
         private void PasswordTextOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
         {
             ValidationHelper.DisableError(passwordInputLayout);
@@ -84,6 +112,37 @@ namespace NotiShare.Activity
                 PasswordHash = HashHelper.GetHashString(passwordText.Text)
             };
             var result = await HttpWorker.Instance.Login(loginObject);
+            if (result.Equals("Welcome"))
+            {
+                AppHelper.WriteString("email", emailText.Text, this);
+                AppHelper.WriteString("password", loginObject.PasswordHash, this);
+                var intent = new Intent(this, typeof(AppActivity));
+                Finish();
+                StartActivity(intent);
+            }
+            else
+            {
+                AppHelper.ShowToastText(this, result);
+                progressBar.Visibility = ViewStates.Gone;
+                mainLayout.Visibility = ViewStates.Visible;
+            }
+        }
+
+
+        private LoginObject CanAuthorize()
+        {
+            LoginObject returnObject = null;
+            var email = AppHelper.ReadString("email", string.Empty, this);
+            var password = AppHelper.ReadString("password", string.Empty, this);
+            if ((!string.IsNullOrEmpty(email)) || (!string.IsNullOrEmpty(password)))
+            {
+                returnObject = new LoginObject
+                {
+                    Email = email,
+                    PasswordHash = password
+                };
+            }
+            return returnObject;
         }
     }
 }

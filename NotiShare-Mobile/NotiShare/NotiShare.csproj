@@ -113,6 +113,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activity\AppActivity.cs" />
     <Compile Include="Activity\RegisterActivity.cs" />
     <Compile Include="Activity\SettingsActivity.cs" />
     <Compile Include="BroadcastReceivers\BootReceiver.cs" />
@@ -142,6 +143,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\register_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\app_layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
