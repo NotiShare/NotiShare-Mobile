@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
 using Java.Interop;
+using NotiShareModel.DataTypes;
+using NotiShareModel.HttpWorker;
 
 namespace NotiShare.Activity
 {
-    [Activity(Theme = "@style/Theme.AppCompat.Light.DarkActionBar")]
+    [Activity(Label = "@string/Register", Theme = "@style/Theme.AppCompat.Light.DarkActionBar")]
     public class RegisterActivity : AppCompatActivity
     {
         private TextInputLayout emailLayout, passwordInputLayout, passwordRepeaTextInputLayout;
@@ -94,9 +92,66 @@ namespace NotiShare.Activity
 
 
         [Export("onRegister")]
-        public void RegisterClick(View view)
+        public async void RegisterClick(View view)
         {
-            
+            if (!CheckEmail(emailEditText.Text))
+            {
+                PutErrorMessage(emailLayout, Resource.String.EmailError);
+                return;
+            }
+            if (!ValidatePasswordLenght(passwordEditText.Text))
+            {
+                PutErrorMessage(passwordInputLayout, Resource.String.PasswordLengthError);
+                return;
+            }
+            if (!ValidatePasswords(passwordEditText.Text, passwrodRepeatEditText.Text))
+            {
+                PutErrorMessage(passwordRepeaTextInputLayout, Resource.String.PasswordsDoNotMatch);
+            }
+            var registerObject = new RegistrationObject
+            {
+                Email = emailEditText.Text,
+                PasswordHash = GetHashString(passwordEditText.Text)
+            };
+            var result = await HttpWorker.Instance.RegisterUser(registerObject);
+        }
+
+
+
+        private byte[] GetHash(string inputString)
+        {
+            HashAlgorithm algorithm = MD5.Create();  
+            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+
+        private string GetHashString(string inputString)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(inputString))
+            {
+                sb.Append(b.ToString("X2"));
+            }
+            return sb.ToString();
+        }
+
+
+        private bool ValidatePasswordLenght(string password)
+        {
+            return password.Length > 5 && password.Length < 17;
+        }
+
+
+        private bool ValidatePasswords(string originalPassword, string repeatedPassword)
+        {
+            return originalPassword.Equals(repeatedPassword);
+        }
+
+
+        private void PutErrorMessage(TextInputLayout layout, int resourceString)
+        {
+            layout.ErrorEnabled = true;
+            layout.Error = Resources.GetString(resourceString);
         }
     }
 }
