@@ -2492,6 +2492,12 @@ namespace NotiShare
 			// aapt resource value: 0x7f070066
 			public const int edit_query = 2131165286;
 			
+			// aapt resource value: 0x7f0700a4
+			public const int emailInput = 2131165348;
+			
+			// aapt resource value: 0x7f0700a5
+			public const int emailTextEdit = 2131165349;
+			
 			// aapt resource value: 0x7f070021
 			public const int end = 2131165217;
 			
@@ -2579,8 +2585,8 @@ namespace NotiShare
 			// aapt resource value: 0x7f070085
 			public const int loginButton = 2131165317;
 			
-			// aapt resource value: 0x7f0700a8
-			public const int masked = 2131165352;
+			// aapt resource value: 0x7f0700aa
+			public const int masked = 2131165354;
 			
 			// aapt resource value: 0x7f07008d
 			public const int media_actions = 2131165325;
@@ -2645,11 +2651,11 @@ namespace NotiShare
 			// aapt resource value: 0x7f070086
 			public const int registerButton = 2131165318;
 			
-			// aapt resource value: 0x7f0700a4
-			public const int repeatPasswordField = 2131165348;
+			// aapt resource value: 0x7f0700a6
+			public const int repeatPasswordField = 2131165350;
 			
-			// aapt resource value: 0x7f0700a5
-			public const int repeatpasswordEditText = 2131165349;
+			// aapt resource value: 0x7f0700a7
+			public const int repeatpasswordEditText = 2131165351;
 			
 			// aapt resource value: 0x7f070035
 			public const int right = 2131165237;
@@ -2717,8 +2723,8 @@ namespace NotiShare
 			// aapt resource value: 0x7f070072
 			public const int select_dialog_listview = 2131165298;
 			
-			// aapt resource value: 0x7f0700a6
-			public const int settings_fragment = 2131165350;
+			// aapt resource value: 0x7f0700a8
+			public const int settings_fragment = 2131165352;
 			
 			// aapt resource value: 0x7f07005c
 			public const int shortcut = 2131165276;
@@ -2843,8 +2849,8 @@ namespace NotiShare
 			// aapt resource value: 0x7f07000e
 			public const int view_offset_helper = 2131165198;
 			
-			// aapt resource value: 0x7f0700a7
-			public const int visible = 2131165351;
+			// aapt resource value: 0x7f0700a9
+			public const int visible = 2131165353;
 			
 			// aapt resource value: 0x7f070027
 			public const int withText = 2131165223;
@@ -3164,6 +3170,9 @@ namespace NotiShare
 			// aapt resource value: 0x7f090033
 			public const int Email = 2131296307;
 			
+			// aapt resource value: 0x7f090038
+			public const int EmailError = 2131296312;
+			
 			// aapt resource value: 0x7f09002d
 			public const int EnableClipboardSummary = 2131296301;
 			
@@ -3187,6 +3196,12 @@ namespace NotiShare
 			
 			// aapt resource value: 0x7f090034
 			public const int Password = 2131296308;
+			
+			// aapt resource value: 0x7f090039
+			public const int PasswordLengthError = 2131296313;
+			
+			// aapt resource value: 0x7f09003a
+			public const int PasswordsDoNotMatch = 2131296314;
 			
 			// aapt resource value: 0x7f090036
 			public const int Register = 2131296310;
