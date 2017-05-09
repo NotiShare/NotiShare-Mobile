@@ -2492,6 +2492,12 @@ namespace NotiShare
 			// aapt resource value: 0x7f070066
 			public const int edit_query = 2131165286;
 			
+			// aapt resource value: 0x7f070082
+			public const int emailEditText = 2131165314;
+			
+			// aapt resource value: 0x7f070081
+			public const int emailField = 2131165313;
+			
 			// aapt resource value: 0x7f0700a4
 			public const int emailInput = 2131165348;
 			
@@ -2839,12 +2845,6 @@ namespace NotiShare
 			
 			// aapt resource value: 0x7f070018
 			public const int useLogo = 2131165208;
-			
-			// aapt resource value: 0x7f070082
-			public const int userNameEditText = 2131165314;
-			
-			// aapt resource value: 0x7f070081
-			public const int userNameField = 2131165313;
 			
 			// aapt resource value: 0x7f07000e
 			public const int view_offset_helper = 2131165198;

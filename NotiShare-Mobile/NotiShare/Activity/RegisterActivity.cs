@@ -9,6 +9,7 @@ using Android.Text;
 using Android.Views;
 using Android.Widget;
 using Java.Interop;
+using NotiShare.Helper;
 using NotiShareModel.DataTypes;
 using NotiShareModel.HttpWorker;
 
@@ -48,27 +49,19 @@ namespace NotiShare.Activity
 
         private void PasswrodRepeatEditTextOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
         {
-            DisableError(passwordRepeaTextInputLayout);
+            ValidationHelper.DisableError(passwordRepeaTextInputLayout);
         }
 
         private void PasswordEditTextOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
         {
-            DisableError(passwordInputLayout);
+            ValidationHelper.DisableError(passwordInputLayout);
         }
 
         private void EmailEditTextOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
         {
-            DisableError(emailLayout);
+            ValidationHelper.DisableError(emailLayout);
         }
 
-
-        private void DisableError(TextInputLayout layout)
-        {
-            if (layout.ErrorEnabled)
-            {
-                layout.ErrorEnabled = false;
-            }
-        }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -83,75 +76,44 @@ namespace NotiShare.Activity
         }
 
 
-        private bool CheckEmail(string inputEmail)
-        {   
-            var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-            var match = regex.Match(inputEmail);
-            return match.Success;
-        }
-
-
         [Export("onRegister")]
         public async void RegisterClick(View view)
         {
-            if (!CheckEmail(emailEditText.Text))
+            progressBar.Visibility = ViewStates.Visible;
+            mainLayout.Visibility = ViewStates.Gone;
+            SupportActionBar.Hide();
+            if (!ValidationHelper.CheckEmail(emailEditText.Text))
             {
-                PutErrorMessage(emailLayout, Resource.String.EmailError);
+                ValidationHelper.PutErrorMessage(emailLayout, Resource.String.EmailError);
                 return;
             }
-            if (!ValidatePasswordLenght(passwordEditText.Text))
+            if (!ValidationHelper.ValidatePasswordLenght(passwordEditText.Text))
             {
-                PutErrorMessage(passwordInputLayout, Resource.String.PasswordLengthError);
+                ValidationHelper.PutErrorMessage(passwordInputLayout, Resource.String.PasswordLengthError);
                 return;
             }
-            if (!ValidatePasswords(passwordEditText.Text, passwrodRepeatEditText.Text))
+            if (!ValidationHelper.ValidatePasswords(passwordEditText.Text, passwrodRepeatEditText.Text))
             {
-                PutErrorMessage(passwordRepeaTextInputLayout, Resource.String.PasswordsDoNotMatch);
+                ValidationHelper.PutErrorMessage(passwordRepeaTextInputLayout, Resource.String.PasswordsDoNotMatch);
             }
             var registerObject = new RegistrationObject
             {
                 Email = emailEditText.Text,
-                PasswordHash = GetHashString(passwordEditText.Text)
+                PasswordHash = HashHelper.GetHashString(passwordEditText.Text)
             };
             var result = await HttpWorker.Instance.RegisterUser(registerObject);
-        }
-
-
-
-        private byte[] GetHash(string inputString)
-        {
-            HashAlgorithm algorithm = MD5.Create();  
-            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
-        }
-
-
-        private string GetHashString(string inputString)
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (byte b in GetHash(inputString))
+            if (result.Equals("Registered"))
             {
-                sb.Append(b.ToString("X2"));
+                Finish();   
             }
-            return sb.ToString();
-        }
+            else
+            {
+                progressBar.Visibility = ViewStates.Gone;
+                mainLayout.Visibility = ViewStates.Visible;
+                SupportActionBar.Show();
+            }
+            AppHelper.ShowToastText(this, result);
 
-
-        private bool ValidatePasswordLenght(string password)
-        {
-            return password.Length > 5 && password.Length < 17;
-        }
-
-
-        private bool ValidatePasswords(string originalPassword, string repeatedPassword)
-        {
-            return originalPassword.Equals(repeatedPassword);
-        }
-
-
-        private void PutErrorMessage(TextInputLayout layout, int resourceString)
-        {
-            layout.ErrorEnabled = true;
-            layout.Error = Resources.GetString(resourceString);
-        }
+        }    
     }
 }

@@ -32,15 +32,18 @@ namespace NotiShareModel.HttpWorker
 
         public async Task<string> RegisterUser(RegistrationObject registration)
         {
-            return await PostRequest(registration);
+            return await PostRequest(registration, $"{DefaultUrl}/register");
         }
 
 
+        public async Task<string> Login(LoginObject loginObject)
+        {
+            return await PostRequest(loginObject, $"{DefaultUrl}/login");
+        }
 
-        private async Task<string> PostRequest<T>(T objectToSend)
+        private async Task<string> PostRequest<T>(T objectToSend, string url)
         {
             string result;
-            var url = $"{DefaultUrl}/register";
             var jsonObject = JsonConvert.SerializeObject(objectToSend);
             var content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
             try

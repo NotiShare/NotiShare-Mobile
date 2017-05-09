@@ -23,7 +23,7 @@
       android:minHeight="100px"
       android:layout_centerInParent="true">
       <android.support.design.widget.TextInputLayout
-        android:id="@+id/userNameField"
+        android:id="@+id/emailField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dip"
@@ -32,7 +32,7 @@
           android:layout_width="match_parent"
           android:hint="@string/Email"
           android:layout_height="wrap_content"
-          android:id="@+id/userNameEditText"
+          android:id="@+id/emailEditText"
           android:singleLine="true" />
       </android.support.design.widget.TextInputLayout>
       <android.support.design.widget.TextInputLayout
@@ -62,7 +62,8 @@
           android:layout_weight="1"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="@string/Login"/>
+          android:text="@string/Login"
+          android:onClick="onLogin"/>
         <Button
           android:id="@+id/registerButton"
           android:layout_width="wrap_content"
