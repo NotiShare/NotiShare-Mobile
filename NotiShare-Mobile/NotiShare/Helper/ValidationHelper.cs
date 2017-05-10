@@ -11,6 +11,7 @@ using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
+using NotiShareModel.DataTypes;
 
 namespace NotiShare.Helper
 {
@@ -50,6 +51,23 @@ namespace NotiShare.Helper
             {
                 layout.ErrorEnabled = false;
             }
+        }
+
+
+        internal static LoginObject CanAuthorize(Context context)
+        {
+            LoginObject returnObject = null;
+            var email = AppHelper.ReadString("email", string.Empty, context);
+            var password = AppHelper.ReadString("password", string.Empty, context);
+            if ((!string.IsNullOrEmpty(email)) || (!string.IsNullOrEmpty(password)))
+            {
+                returnObject = new LoginObject
+                {
+                    Email = email,
+                    PasswordHash = password
+                };
+            }
+            return returnObject;
         }
     }
 }

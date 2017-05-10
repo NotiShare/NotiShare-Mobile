@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Net;
 using Android.OS;
 using Android.Preferences;
 using Android.Runtime;
@@ -61,6 +62,29 @@ namespace NotiShare.Helper
         private static ISharedPreferences GetPreferences(Context context)
         {
             return PreferenceManager.GetDefaultSharedPreferences(context);
+        }
+
+
+        internal static bool IsConnectedToNetwork()
+        {
+            var connectivityManaget =
+                (ConnectivityManager) Application.Context.GetSystemService(Context.ConnectivityService);
+            var info = connectivityManaget.ActiveNetworkInfo;
+            return info != null && info.IsConnected;
+        }
+
+
+        internal static bool IsServiceEnable(string name, Context context)
+        {
+            var activityManeger = (ActivityManager) context.GetSystemService(Context.ActivityService);
+            foreach (var service in activityManeger.GetRunningServices(int.MaxValue))
+            {
+                if (name.Equals(service.Service.ClassName))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

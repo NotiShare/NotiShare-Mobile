@@ -13,6 +13,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Preferences;
 using Android.Provider;
+using NotiShare.Helper;
 using NotiShare.Services;
 
 namespace NotiShare.Fragments
@@ -24,6 +25,7 @@ namespace NotiShare.Fragments
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            CheckServices();
             AddPreferencesFromResource(Resource.Layout.preference_layout);
             PreferenceManager.GetDefaultSharedPreferences(Activity).RegisterOnSharedPreferenceChangeListener(this);
             notificationPreference = (CheckBoxPreference) FindPreference("notification");
@@ -44,7 +46,7 @@ namespace NotiShare.Fragments
             switch (key)
             {
                 case "notification":
-                    var notificationIntent = new Intent(Activity, typeof(NotificationService));
+                    var notificationIntent = new Intent(Application.Context, typeof(NotificationService));
                     if (sharedPreferences.GetBoolean(key, false))
                     {
                         EnableService(notificationIntent);
@@ -55,7 +57,7 @@ namespace NotiShare.Fragments
                     }
                     break;
                 case "clipboard":
-                    var clipboardIntent = new Intent(Activity, typeof(ClipboardService));
+                    var clipboardIntent = new Intent(Application.Context, typeof(ClipboardService));
                     if (sharedPreferences.GetBoolean(key, false))
                     {
                         Activity.StartService(clipboardIntent);
@@ -92,11 +94,21 @@ namespace NotiShare.Fragments
 
         public void OnCancel(IDialogInterface dialog)
         {
-            var preferenceManager = PreferenceManager.SharedPreferences;
-            var editor = preferenceManager.Edit();
-            editor.PutBoolean("notification", false);
-            editor.Apply();
+            AppHelper.WriteBool("notification", false, Context);
             notificationPreference.Checked = false;
+        }
+
+
+        private void CheckServices()
+        {
+            if (!AppHelper.IsServiceEnable("com.fezz.notishare.ClipboardService", Context))
+            {
+                AppHelper.WriteBool("clipboard", false, Context);
+            }
+            if (!AppHelper.IsServiceEnable("com.fezz.notishare.NotificationService", Context))
+            {
+                AppHelper.WriteBool("notification", false, Context);
+            }
         }
     }
 }

@@ -49,7 +49,7 @@ namespace NotiShare.Activity
         public override async void OnAttachedToWindow()
         {
             base.OnAttachedToWindow();
-            var loginObject = CanAuthorize();
+            var loginObject = ValidationHelper.CanAuthorize(this);
             if (loginObject != null)
             {
                 var result = await HttpWorker.Instance.Login(loginObject);
@@ -94,8 +94,7 @@ namespace NotiShare.Activity
         [Export("onLogin")]
         public async void LoginClick(View view)
         {
-            progressBar.Visibility = ViewStates.Visible;
-            mainLayout.Visibility = ViewStates.Gone;
+            
             if (!ValidationHelper.CheckEmail(emailText.Text))
             {
                 ValidationHelper.PutErrorMessage(emailInputLayout, Resources.GetString(Resource.String.EmailError));
@@ -106,6 +105,8 @@ namespace NotiShare.Activity
                 ValidationHelper.PutErrorMessage(passwordInputLayout, Resources.GetString(Resource.String.PasswordLengthError));
                 return;
             }
+            progressBar.Visibility = ViewStates.Visible;
+            mainLayout.Visibility = ViewStates.Gone;
             var loginObject = new LoginObject
             {
                 Email = emailText.Text,
@@ -129,21 +130,7 @@ namespace NotiShare.Activity
         }
 
 
-        private LoginObject CanAuthorize()
-        {
-            LoginObject returnObject = null;
-            var email = AppHelper.ReadString("email", string.Empty, this);
-            var password = AppHelper.ReadString("password", string.Empty, this);
-            if ((!string.IsNullOrEmpty(email)) || (!string.IsNullOrEmpty(password)))
-            {
-                returnObject = new LoginObject
-                {
-                    Email = email,
-                    PasswordHash = password
-                };
-            }
-            return returnObject;
-        }
+        
     }
 }
 

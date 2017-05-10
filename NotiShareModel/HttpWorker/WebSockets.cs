@@ -9,6 +9,8 @@ namespace NotiShareModel.HttpWorker
 {
     public class WebSocket
     {
+        private const string DefaultUrl = "ws://192.168.100.6";
+
         private string url;
 
         private int port;
@@ -32,7 +34,7 @@ namespace NotiShareModel.HttpWorker
             connection.OnOpened += ConnectionOnOnOpened;
             connection.OnMessage += ConnectionOnOnMessage;
             connection.OnError += ConnectionOnOnError;
-            connection.Open($"ws://192.168.100.6:{port}/{url}?id={id}");
+            connection.Open($"{DefaultUrl}:{port}/{url}?id={id}");
         }
 
 

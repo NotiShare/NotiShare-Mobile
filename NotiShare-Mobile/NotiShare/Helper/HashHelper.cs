@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using NotiShareModel.DataTypes;
 
 namespace NotiShare.Helper
 {
@@ -31,5 +32,6 @@ namespace NotiShare.Helper
             }
             return sb.ToString();
         }
+       
     }
 }
