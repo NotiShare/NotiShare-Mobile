@@ -37,10 +37,10 @@ namespace NotiShare.Helper
         }
 
 
-        internal static void PutErrorMessage(TextInputLayout layout, int resourceString)
+        internal static void PutErrorMessage(TextInputLayout layout, string text)
         {
             layout.ErrorEnabled = true;
-            layout.Error = Resources.System.GetString(resourceString);
+            layout.Error = text;
         }
 
 

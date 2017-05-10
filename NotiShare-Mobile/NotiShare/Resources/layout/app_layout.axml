@@ -24,12 +24,14 @@
     <Button
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="@string/SettingsTitle">
+      android:text="@string/SettingsTitle"
+      android:onClick="onSettings">
     </Button>
     <Button
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="@string/Logout">
+      android:text="@string/Logout"
+      android:onClick="onLogout">
     </Button>
   </LinearLayout>
 </RelativeLayout>

@@ -26,7 +26,7 @@ namespace NotiShare.Activity
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
+            Websockets.Droid.WebsocketConnection.Link();
             SetContentView(Resource.Layout.login_screen);
 
             emailInputLayout = FindViewById<TextInputLayout>(Resource.Id.emailField);
@@ -98,12 +98,12 @@ namespace NotiShare.Activity
             mainLayout.Visibility = ViewStates.Gone;
             if (!ValidationHelper.CheckEmail(emailText.Text))
             {
-                ValidationHelper.PutErrorMessage(emailInputLayout, Resource.String.EmailError);
+                ValidationHelper.PutErrorMessage(emailInputLayout, Resources.GetString(Resource.String.EmailError));
                 return;
             }
             if (!ValidationHelper.ValidatePasswordLenght(passwordText.Text))
             {
-                ValidationHelper.PutErrorMessage(passwordInputLayout, Resource.String.PasswordLengthError);
+                ValidationHelper.PutErrorMessage(passwordInputLayout, Resources.GetString(Resource.String.PasswordLengthError));
                 return;
             }
             var loginObject = new LoginObject

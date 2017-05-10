@@ -39,6 +39,7 @@
     <Compile Include="DataTypes\RegisterDeviceObject.cs" />
     <Compile Include="DataTypes\RegistrationObject.cs" />
     <Compile Include="HttpWorker\HttpWorker.cs" />
+    <Compile Include="HttpWorker\WebSockets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

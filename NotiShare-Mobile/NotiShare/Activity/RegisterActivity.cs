@@ -79,24 +79,25 @@ namespace NotiShare.Activity
 
         [Export("onRegister")]
         public async void RegisterClick(View view)
-        {
-            progressBar.Visibility = ViewStates.Visible;
-            mainLayout.Visibility = ViewStates.Gone;
-            SupportActionBar.Hide();
+        { 
             if (!ValidationHelper.CheckEmail(emailEditText.Text))
             {
-                ValidationHelper.PutErrorMessage(emailLayout, Resource.String.EmailError);
+                ValidationHelper.PutErrorMessage(emailLayout, Resources.GetString(Resource.String.EmailError));
                 return;
             }
             if (!ValidationHelper.ValidatePasswordLenght(passwordEditText.Text))
             {
-                ValidationHelper.PutErrorMessage(passwordInputLayout, Resource.String.PasswordLengthError);
+                ValidationHelper.PutErrorMessage(passwordInputLayout, Resources.GetString(Resource.String.PasswordLengthError));
                 return;
             }
             if (!ValidationHelper.ValidatePasswords(passwordEditText.Text, passwrodRepeatEditText.Text))
             {
-                ValidationHelper.PutErrorMessage(passwordRepeaTextInputLayout, Resource.String.PasswordsDoNotMatch);
+                ValidationHelper.PutErrorMessage(passwordRepeaTextInputLayout, Resources.GetString(Resource.String.PasswordsDoNotMatch));
+                return;
             }
+            progressBar.Visibility = ViewStates.Visible;
+            mainLayout.Visibility = ViewStates.Gone;
+            SupportActionBar.Hide();
             var registerObject = new RegistrationObject
             {
                 Email = emailEditText.Text,

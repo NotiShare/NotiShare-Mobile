@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 using Android.App;
@@ -11,6 +12,7 @@ using Android.Runtime;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using Java.Interop;
 using NotiShare.Helper;
 using NotiShareModel.DataTypes;
 using NotiShareModel.HttpWorker;
@@ -44,6 +46,26 @@ namespace NotiShare.Activity
             AppHelper.ShowToastText(this, result);
             progressLayout.Visibility = ViewStates.Gone;
             mainLayout.Visibility = ViewStates.Visible;
+        }
+
+
+
+
+        [Export("onLogout")]
+        public void Logout(View view)
+        {
+            AppHelper.ClearValue("email", this);
+            AppHelper.ClearValue("password", this);
+            var intent = new Intent(this, typeof(MainActivity));
+            StartActivity(intent);
+            Finish();
+        }
+
+        [Export("onSettings")]
+        public void OpenSettings(View view)
+        {
+            var intent = new Intent(this, typeof(SettingsActivity));
+            StartActivity(intent);
         }
     }
 }

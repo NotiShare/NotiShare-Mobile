@@ -23,6 +23,8 @@ namespace NotiShare.Activity
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.settings_layout);
+            SupportActionBar.SetDefaultDisplayHomeAsUpEnabled(true);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.Title = Resources.GetString(Resource.String.SettingsTitle);
             if (FragmentManager.FindFragmentById(Resource.Id.settings_fragment) == null)
             {
@@ -31,7 +33,20 @@ namespace NotiShare.Activity
                 transaction.Add(Resource.Id.settings_fragment, settingFragment);
                 transaction.Commit();
             }
-            // Create your application here
+        }
+
+
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    Finish();
+                    return true;
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
         }
     }
 }

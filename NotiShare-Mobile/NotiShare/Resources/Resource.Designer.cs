@@ -3170,20 +3170,20 @@ namespace NotiShare
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f09003c
-			public const int Action = 2131296316;
+			// aapt resource value: 0x7f09003b
+			public const int Action = 2131296315;
 			
 			// aapt resource value: 0x7f09002b
 			public const int ApplicationName = 2131296299;
 			
-			// aapt resource value: 0x7f09003b
-			public const int Clipboard = 2131296315;
+			// aapt resource value: 0x7f09003a
+			public const int Clipboard = 2131296314;
 			
 			// aapt resource value: 0x7f090033
 			public const int Email = 2131296307;
 			
-			// aapt resource value: 0x7f090038
-			public const int EmailError = 2131296312;
+			// aapt resource value: 0x7f09003d
+			public const int EmailError = 2131296317;
 			
 			// aapt resource value: 0x7f09002d
 			public const int EnableClipboardSummary = 2131296301;
@@ -3200,8 +3200,8 @@ namespace NotiShare
 			// aapt resource value: 0x7f090035
 			public const int Login = 2131296309;
 			
-			// aapt resource value: 0x7f09003d
-			public const int Logout = 2131296317;
+			// aapt resource value: 0x7f09003c
+			public const int Logout = 2131296316;
 			
 			// aapt resource value: 0x7f090032
 			public const int NotificationDialogMessage = 2131296306;
@@ -3212,11 +3212,11 @@ namespace NotiShare
 			// aapt resource value: 0x7f090034
 			public const int Password = 2131296308;
 			
-			// aapt resource value: 0x7f090039
-			public const int PasswordLengthError = 2131296313;
+			// aapt resource value: 0x7f090038
+			public const int PasswordLengthError = 2131296312;
 			
-			// aapt resource value: 0x7f09003a
-			public const int PasswordsDoNotMatch = 2131296314;
+			// aapt resource value: 0x7f090039
+			public const int PasswordsDoNotMatch = 2131296313;
 			
 			// aapt resource value: 0x7f090036
 			public const int Register = 2131296310;
