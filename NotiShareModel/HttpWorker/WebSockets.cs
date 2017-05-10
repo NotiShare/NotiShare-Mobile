@@ -32,7 +32,7 @@ namespace NotiShareModel.HttpWorker
             connection.OnOpened += ConnectionOnOnOpened;
             connection.OnMessage += ConnectionOnOnMessage;
             connection.OnError += ConnectionOnOnError;
-            connection.Open($"ws://192.168.100.6:{port}/{url}");
+            connection.Open($"ws://192.168.100.6:{port}/{url}?id={id}");
         }
 
 
