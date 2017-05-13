@@ -43,7 +43,7 @@ namespace NotiShare.Activity
                 DeviceType = "droid"
             };
             var result = await HttpWorker.Instance.RegisterDevice(deviceObject);
-            AppHelper.ShowToastText(this, result);
+            AppHelper.ShowToastText(this, result.Message);
             progressLayout.Visibility = ViewStates.Gone;
             mainLayout.Visibility = ViewStates.Visible;
         }
