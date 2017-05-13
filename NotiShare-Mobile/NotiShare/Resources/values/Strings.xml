@@ -19,4 +19,6 @@
   <string name="Action">Choose Action</string>
   <string name="Logout">Logout</string>
   <string name="EmailError">Invalid Email</string>
+  <string name="SerialError">Error</string>
+  <string name="SerialErrorDescription">Your device hasn\'t got a serial number. You can\'t use this app</string>
 </resources>

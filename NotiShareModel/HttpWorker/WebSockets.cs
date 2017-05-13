@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,13 +18,23 @@ namespace NotiShareModel.HttpWorker
 
         private string id;
 
+        private string deviceDbId;
+
+        private string userDbId;
+
+        private string deviceType;
+
         private IWebSocketConnection connection;
 
-        public WebSocket(string url, int port, string id)
+
+        public WebSocket(string url, int port, string id, string deviceDbId, string userDbId, string deviceType)
         {
             this.url = url;
             this.port = port;
             this.id = id;
+            this.deviceDbId = deviceDbId;
+            this.userDbId = userDbId;
+            this.deviceType = deviceType;
         }
 
 
@@ -34,7 +45,13 @@ namespace NotiShareModel.HttpWorker
             connection.OnOpened += ConnectionOnOnOpened;
             connection.OnMessage += ConnectionOnOnMessage;
             connection.OnError += ConnectionOnOnError;
-            connection.Open($"{DefaultUrl}:{port}/{url}?id={id}");
+            connection.OnClosed += ConnectionOnOnClosed;
+            connection.Open($"{DefaultUrl}:{port}/{url}?id={id}&deviceId={deviceDbId}&userId={userDbId}&type={deviceType}");
+        }
+
+        private void ConnectionOnOnClosed()
+        {
+            Debug.WriteLine("Closed");
         }
 
 
@@ -46,7 +63,7 @@ namespace NotiShareModel.HttpWorker
 
         private void ConnectionOnOnError(string s)
         {
-            
+            Debug.WriteLine(s);
         }
 
         private void ConnectionOnOnMessage(string s)
@@ -54,13 +71,24 @@ namespace NotiShareModel.HttpWorker
             
         }
 
+
+        
         private void ConnectionOnOnOpened()
         {
-            connection.Send(id);
+            Debug.WriteLine("opened");
         }
 
 
-        
+        public void Close()
+        {
+            connection.Close();
+        }
+
+
+        public bool IsConnected()
+        {
+            return connection.IsOpen;
+        }
 
     }
 }

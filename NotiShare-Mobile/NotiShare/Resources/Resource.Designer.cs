@@ -3224,6 +3224,12 @@ namespace NotiShare
 			// aapt resource value: 0x7f090037
 			public const int RepeatPassword = 2131296311;
 			
+			// aapt resource value: 0x7f09003e
+			public const int SerialError = 2131296318;
+			
+			// aapt resource value: 0x7f09003f
+			public const int SerialErrorDescription = 2131296319;
+			
 			// aapt resource value: 0x7f090030
 			public const int SettingsTitle = 2131296304;
 			

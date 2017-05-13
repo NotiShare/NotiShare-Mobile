@@ -13,6 +13,7 @@ using Android.Util;
 using Android.Views;
 using Android.Webkit;
 using Android.Widget;
+using NotiShare.Helper;
 using NotiShareModel.HttpWorker;
 
 namespace NotiShare.Services
@@ -40,7 +41,7 @@ namespace NotiShare.Services
             base.OnCreate();
             clipboardManager = (ClipboardManager) GetSystemService(ClipboardService);
             clipboardManager.AddPrimaryClipChangedListener(this);
-            socket = new WebSocket("clipboardSocket", 3032, Build.Serial);
+            socket = new WebSocket("clipboardSocket", 3032, Build.Serial, AppHelper.ReadString("deviceDbId", string.Empty, Application.Context), AppHelper.ReadString("userDbId", string.Empty, Application.Context), "droid");
             socket.Init();
         }
 
@@ -55,6 +56,10 @@ namespace NotiShare.Services
                 var text = item.Text;
                 await Task.Run(() =>
                 {
+                    if (!socket.IsConnected())
+                    {
+                        socket.Init();
+                    }
                     socket.Send(text);
                 });
             }
@@ -71,6 +76,7 @@ namespace NotiShare.Services
                 clipboardManager = (ClipboardManager) GetSystemService(ClipboardService);
             }
             clipboardManager.RemovePrimaryClipChangedListener(this);
+            socket.Close();
             Log.Info(DebugTag, "disabled");
         }
     }

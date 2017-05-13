@@ -8,6 +8,7 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using Android.Provider;
 using Android.Runtime;
 using Android.Support.V7.App;
 using Android.Views;
@@ -16,6 +17,7 @@ using Java.Interop;
 using NotiShare.Helper;
 using NotiShareModel.DataTypes;
 using NotiShareModel.HttpWorker;
+using AlertDialog = Android.App.AlertDialog;
 
 namespace NotiShare.Activity
 {
@@ -36,14 +38,22 @@ namespace NotiShare.Activity
         public override async void OnAttachedToWindow()
         {
             base.OnAttachedToWindow();
+            if (!IsHaveSerial())
+            {
+                AppHelper.ClearValue("email", this);
+                AppHelper.ClearValue("password", this);
+                return;
+            }
             var deviceObject = new RegisterDeviceObject
             {
                 DeviceId = Build.Serial,
-                Email = AppHelper.ReadString("email", String.Empty, this),
+                Email = AppHelper.ReadString("email", string.Empty, this),
                 DeviceType = "droid"
             };
             var result = await HttpWorker.Instance.RegisterDevice(deviceObject);
             AppHelper.ShowToastText(this, result.Message);
+            AppHelper.WriteString("deviceDbId", result.DeviceDbId, this);
+            AppHelper.WriteString("userDbId", result.UserDbId, this);
             progressLayout.Visibility = ViewStates.Gone;
             mainLayout.Visibility = ViewStates.Visible;
         }
@@ -66,6 +76,27 @@ namespace NotiShare.Activity
         {
             var intent = new Intent(this, typeof(SettingsActivity));
             StartActivity(intent);
+        }
+
+
+
+        private bool IsHaveSerial()
+        {
+            bool result = true;
+            if (string.IsNullOrEmpty(Build.Serial))
+            {
+                var dialog = new AlertDialog.Builder(this);
+                dialog.SetTitle(Resources.GetString(Resource.String.SerialError));
+                dialog.SetMessage(Resources.GetString(Resource.String.SerialErrorDescription));
+                dialog.SetNegativeButton("OK", (sender, args) =>
+                {
+                    Finish();
+                });
+                dialog.SetCancelable(false);
+                dialog.Show();
+                result = false;
+            }
+            return result;
         }
     }
 }

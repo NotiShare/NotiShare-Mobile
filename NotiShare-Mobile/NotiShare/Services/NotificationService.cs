@@ -1,17 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
+using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Preferences;
 using Android.Runtime;
 using Android.Service.Notification;
+using Android.Support.V4.Content;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Java.IO;
+using NotiShareModel.DataTypes;
+using NotiShareModel.HttpWorker;
 
 namespace NotiShare.Services
 {
@@ -19,6 +27,7 @@ namespace NotiShare.Services
     public class NotificationService : NotificationListenerService
     {
 
+        private WebSocket socket;
         private const string DebugConstant = "notishare_notificationService";
         public override void OnCreate()
         {
@@ -28,26 +37,73 @@ namespace NotiShare.Services
 
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
+            if (socket == null)
+            {
+                //init
+            }
+            else
+            {
+                //check connection and recreate
+            }
             return StartCommandResult.Sticky;
         }
 
 
-        public override void OnNotificationPosted(StatusBarNotification sbn)
+        public override async void OnNotificationPosted(StatusBarNotification sbn)
         {
             base.OnNotificationPosted(sbn);
             var preference = PreferenceManager.GetDefaultSharedPreferences(Application.Context);
+            string title, text;
+            Drawable icon = null;
             if (preference.GetBoolean("notification", false))
             {
                 Log.Info(DebugConstant, "post notification");
+
+                var pack = sbn.PackageName;
+                var bundle = sbn.Notification.Extras;
+                title = bundle.GetString("android.title");
+                text = bundle.GetCharSequence("android.text");
+                var iconInt = bundle.GetInt(Notification.ExtraSmallIcon);
+                try
+                {
+                    var context = CreatePackageContext(pack, PackageContextFlags.IgnoreSecurity);
+                    icon = ContextCompat.GetDrawable(context, iconInt);
+                }
+                catch (PackageManager.NameNotFoundException)
+                {
+
+                }
+                catch (Exception ex)
+                {
+                    Log.Debug(DebugConstant, ex.StackTrace);
+                }
+                await Task.Run(() =>
+                {
+
+                    var notificationObjet = new NotificationObject
+                    {
+                        ImageBase64 = icon != null ? GetImageString(icon) : string.Empty,
+                        NotificationText = string.IsNullOrEmpty(text) ? text :  "Empty text" ,
+                        Title = string.IsNullOrEmpty(title) ? title : "Empty title"
+                    };// send to socket
+                });
             }
+            
             else
             {
                 Log.Info(DebugConstant, "service is disabled");
+                socket.Close();
             }
 
         }
 
-
+        private string GetImageString(Drawable drawable)
+        {
+            var bitmap = ((BitmapDrawable) drawable).Bitmap;
+            var stream = new MemoryStream();
+            bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+            return Convert.ToBase64String(stream.ToArray());
+        }
         
 
         public override void OnNotificationRemoved(StatusBarNotification sbn)
@@ -59,6 +115,7 @@ namespace NotiShare.Services
         public override bool StopService(Intent name)
         {
             Log.Info(DebugConstant, "Stoped");
+            socket.Close();
             return base.StopService(name);
         }
 

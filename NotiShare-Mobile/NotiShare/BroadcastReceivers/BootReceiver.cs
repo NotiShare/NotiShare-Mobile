@@ -22,6 +22,7 @@ namespace NotiShare.BroadcastReceivers
     {
         public override async void OnReceive(Context context, Intent intent)
         {
+            Websockets.Droid.WebsocketConnection.Link();
             if (AppHelper.IsConnectedToNetwork())
             {
                 var loginObject = ValidationHelper.CanAuthorize(Application.Context);

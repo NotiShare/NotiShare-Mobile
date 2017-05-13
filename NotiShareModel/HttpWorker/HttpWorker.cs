@@ -44,7 +44,7 @@ namespace NotiShareModel.HttpWorker
 
         public async Task<DeviceRegisterResult> RegisterDevice(RegisterDeviceObject device)
         {
-            var resultString = await PostRequest(device, $"{DefaultUrl}/registerDevice");
+            var resultString = await PostRequest(device, $"{DefaultUrl}/registerDevice").ConfigureAwait(false);
             return JsonConvert.DeserializeObject<DeviceRegisterResult>(resultString);
         }
 
