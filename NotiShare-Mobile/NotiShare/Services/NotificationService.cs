@@ -18,6 +18,8 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Java.IO;
+using Newtonsoft.Json;
+using NotiShare.Helper;
 using NotiShareModel.DataTypes;
 using NotiShareModel.HttpWorker;
 
@@ -39,11 +41,15 @@ namespace NotiShare.Services
         {
             if (socket == null)
             {
-                //init
+                socket = new WebSocket("notificationSocket", 3031, Build.Serial, AppHelper.ReadString("deviceDbId", string.Empty, Application.Context), AppHelper.ReadString("userDbId", string.Empty, Application.Context), "droid");
+                socket.Init();
             }
             else
             {
-                //check connection and recreate
+                if (!socket.IsConnected())
+                {
+                    socket.Init();
+                }
             }
             return StartCommandResult.Sticky;
         }
@@ -83,9 +89,11 @@ namespace NotiShare.Services
                     var notificationObjet = new NotificationObject
                     {
                         ImageBase64 = icon != null ? GetImageString(icon) : string.Empty,
-                        NotificationText = string.IsNullOrEmpty(text) ? text :  "Empty text" ,
-                        Title = string.IsNullOrEmpty(title) ? title : "Empty title"
+                        NotificationText = !string.IsNullOrEmpty(text) ? text :  "Empty text" ,
+                        Title = !string.IsNullOrEmpty(title) ? title : "Empty title"
                     };// send to socket
+                    var jsonString = JsonConvert.SerializeObject(notificationObjet);
+                    socket.Send(jsonString);
                 });
             }
             

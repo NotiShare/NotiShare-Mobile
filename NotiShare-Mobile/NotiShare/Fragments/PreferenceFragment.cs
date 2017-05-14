@@ -89,8 +89,8 @@ namespace NotiShare.Fragments
                 dialog.SetOnCancelListener(this);
                 dialog.Show();      
             }
-            else if (!AppHelper.IsServiceEnable("com.fezz.notishare.NotificationService", Context))
-            {
+            else
+            { 
                 Activity.StartService(currentIntent);
             }
         }
