@@ -19,11 +19,6 @@
     <Button
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="@string/Clipboard">
-    </Button>
-    <Button
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
       android:text="@string/SettingsTitle"
       android:onClick="onSettings">
     </Button>
