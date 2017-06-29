@@ -63,17 +63,33 @@ namespace NotiShare.Services
             Drawable icon = null;
             if (preference.GetBoolean("notification", false))
             {
-                Log.Info(DebugConstant, "post notification");
-
-                var pack = sbn.PackageName;
-                var bundle = sbn.Notification.Extras;
-                title = bundle.GetString("android.title");
-                text = bundle.GetCharSequence("android.text");
-                var iconInt = bundle.GetInt(Notification.ExtraSmallIcon);
                 try
                 {
+                    Log.Info(DebugConstant, "post notification");
+
+                    var pack = sbn.PackageName;
+                    var bundle = sbn.Notification.Extras;
+                    title = bundle.GetString("android.title");
+                    text = bundle.GetCharSequence("android.text");
+                    var iconInt = bundle.GetInt(Notification.ExtraSmallIcon);
+
                     var context = CreatePackageContext(pack, PackageContextFlags.IgnoreSecurity);
                     icon = ContextCompat.GetDrawable(context, iconInt);
+
+
+                    await Task.Run(() =>
+                    {
+
+                        var notificationObjet = new NotificationObject
+                        {
+                            ImageBase64 = icon != null ? GetImageString(icon) : string.Empty,
+                            NotificationText = !string.IsNullOrEmpty(text) ? text : "Empty text",
+                            Title = !string.IsNullOrEmpty(title) ? title : "Empty title"
+                        }; // send to socket
+                        var jsonString = JsonConvert.SerializeObject(notificationObjet);
+                        socket.Send(jsonString);
+                    });
+
                 }
                 catch (PackageManager.NameNotFoundException)
                 {
@@ -83,18 +99,6 @@ namespace NotiShare.Services
                 {
                     Log.Debug(DebugConstant, ex.StackTrace);
                 }
-                await Task.Run(() =>
-                {
-
-                    var notificationObjet = new NotificationObject
-                    {
-                        ImageBase64 = icon != null ? GetImageString(icon) : string.Empty,
-                        NotificationText = !string.IsNullOrEmpty(text) ? text :  "Empty text" ,
-                        Title = !string.IsNullOrEmpty(title) ? title : "Empty title"
-                    };// send to socket
-                    var jsonString = JsonConvert.SerializeObject(notificationObjet);
-                    socket.Send(jsonString);
-                });
             }
             
             else
