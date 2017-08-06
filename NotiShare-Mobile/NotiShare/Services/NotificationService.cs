@@ -91,13 +91,13 @@ namespace NotiShare.Services
                     });
 
                 }
-                catch (PackageManager.NameNotFoundException)
+                catch (PackageManager.NameNotFoundException ex)
                 {
-
+                    Log.Error(DebugConstant, ex.StackTrace);
                 }
                 catch (Exception ex)
                 {
-                    Log.Debug(DebugConstant, ex.StackTrace);
+                    Log.Error(DebugConstant, ex.StackTrace);
                 }
             }
             
@@ -118,7 +118,7 @@ namespace NotiShare.Services
             }
             catch (InvalidCastException e)
             {
-                Log.Debug(DebugConstant, e.StackTrace);
+                Log.Error(DebugConstant, e.StackTrace);
                 return string.Empty;
             }
             using (var stream = new MemoryStream())
