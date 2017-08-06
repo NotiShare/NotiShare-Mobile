@@ -10,7 +10,7 @@ namespace NotiShareModel.HttpWorker
 {
     public class WebSocket
     {
-        private const string DefaultUrl = "ws://192.168.100.6";
+        private readonly string DefaultUrl = UrlResource.WebSocketUrl;
 
         private string url;
 
@@ -42,14 +42,14 @@ namespace NotiShareModel.HttpWorker
         public void Init()
         {
             connection = WebSocketFactory.Create();
-            connection.OnOpened += ConnectionOnOnOpened;
-            connection.OnMessage += ConnectionOnOnMessage;
-            connection.OnError += ConnectionOnOnError;
-            connection.OnClosed += ConnectionOnOnClosed;
+            connection.OnOpened += ConnectionOnOpened;
+            connection.OnMessage += ConnectionOnMessage;
+            connection.OnError += ConnectionOnError;
+            connection.OnClosed += ConnectionOnClosed;
             connection.Open($"{DefaultUrl}:{port}/{url}?id={id}&deviceId={deviceDbId}&userId={userDbId}&type={deviceType}");
         }
 
-        private void ConnectionOnOnClosed()
+        private void ConnectionOnClosed()
         {
             Debug.WriteLine("Closed");
         }
@@ -61,19 +61,19 @@ namespace NotiShareModel.HttpWorker
         }
 
 
-        private void ConnectionOnOnError(string s)
+        private void ConnectionOnError(string s)
         {
             Debug.WriteLine(s);
         }
 
-        private void ConnectionOnOnMessage(string s)
+        private void ConnectionOnMessage(string s)
         {
             
         }
 
 
         
-        private void ConnectionOnOnOpened()
+        private void ConnectionOnOpened()
         {
             Debug.WriteLine("opened");
         }
