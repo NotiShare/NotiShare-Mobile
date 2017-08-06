@@ -17,10 +17,10 @@ namespace NotiShareModel.HttpWorker
 
         private HttpClient client;
 
-        public static HttpWorker Instance { get { return singleton.Value; } }
+        public static HttpWorker Instance => singleton.Value;
         private const int Timeout = 10;
 
-        private const string DefaultUrl = "http://192.168.100.6:3030";
+        private readonly string DefaultUrl = UrlResource.ServerUrl;
 
         private HttpWorker()
         {

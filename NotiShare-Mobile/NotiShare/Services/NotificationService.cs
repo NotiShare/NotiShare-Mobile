@@ -111,10 +111,22 @@ namespace NotiShare.Services
 
         private string GetImageString(Drawable drawable)
         {
-            var bitmap = ((BitmapDrawable) drawable).Bitmap;
-            var stream = new MemoryStream();
-            bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
-            return Convert.ToBase64String(stream.ToArray());
+            Bitmap bitmap = null;
+            try
+            {
+                 bitmap = ((BitmapDrawable) drawable).Bitmap;
+            }
+            catch (InvalidCastException e)
+            {
+                Log.Debug(DebugConstant, e.StackTrace);
+                return string.Empty;
+            }
+            using (var stream = new MemoryStream())
+            {
+                    bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+                    return Convert.ToBase64String(stream.ToArray());
+            }
+            
         }
         
 
