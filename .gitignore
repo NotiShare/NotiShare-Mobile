@@ -181,4 +181,14 @@ FakesAssemblies/
 
 *.userprefs
 
+
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
 .DS_Store
+
+# Visual Studio 2015 cache/options directory
+.vs/
