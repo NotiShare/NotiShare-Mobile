@@ -47,8 +47,9 @@ namespace NotiShare.Activity
             var deviceObject = new RegisterDeviceObject
             {
                 DeviceId = Build.Serial,
-                UserDeviceId = AppHelper.ReadString("email", string.Empty, this),
-                DeviceType = 1
+                UserId = AppHelper.ReadString("email", string.Empty, this),//todo put user id here
+                DeviceType = 1,
+                DeviceName = Build.Model
             };
             var result = await HttpWorker.Instance.RegisterDevice(deviceObject);
             AppHelper.ShowToastText(this, result.Message);
