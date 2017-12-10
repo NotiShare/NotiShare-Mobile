@@ -13,8 +13,10 @@ using Android.Util;
 using Android.Views;
 using Android.Webkit;
 using Android.Widget;
+using Newtonsoft.Json;
 using NotiShare.Helper;
 using NotiShare.Ws;
+using NotiShareModel.DataTypes;
 
 namespace NotiShare.Services
 {
@@ -41,7 +43,7 @@ namespace NotiShare.Services
             base.OnCreate();
             clipboardManager = (ClipboardManager) GetSystemService(ClipboardService);
             clipboardManager.AddPrimaryClipChangedListener(this);
-            socket = new WebSocket("clipboardSocket", 3032, Build.Serial, AppHelper.ReadString("deviceDbId", string.Empty, Application.Context), AppHelper.ReadString("userDbId", string.Empty, Application.Context), "droid");
+            socket = new WebSocket("clipboardSocket", 3032, AppHelper.ReadString(PreferenceKeys.UserDeviceId, string.Empty, Application.Context), AppHelper.ReadString(PreferenceKeys.UserIdKey, string.Empty, Application.Context), 1);
             socket.Init();
         }
 
@@ -60,7 +62,13 @@ namespace NotiShare.Services
                     {
                         socket.Init();
                     }
-                    socket.Send(text);
+                    var clipboardData = new ClipboardData
+                    {
+                        ClipboardStringData = text,
+                        DataType = 1,
+                        DatetimeCreation = DateTime.Now
+                    };
+                    socket.Send(JsonConvert.SerializeObject(clipboardData));
                 });
             }
             

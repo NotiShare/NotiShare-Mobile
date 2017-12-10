@@ -1,23 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Graphics;
 using Android.Graphics.Drawables;
-using Android.OS;
 using Android.Preferences;
-using Android.Runtime;
 using Android.Service.Notification;
 using Android.Support.V4.Content;
 using Android.Util;
-using Android.Views;
-using Android.Widget;
-using Java.IO;
 using Newtonsoft.Json;
 using NotiShare.Helper;
 using NotiShareModel.DataTypes;
@@ -41,7 +33,7 @@ namespace NotiShare.Services
         {
             if (socket == null)
             {
-                socket = new WebSocket("notificationSocket", 3031, Build.Serial, AppHelper.ReadString("deviceDbId", string.Empty, Application.Context), AppHelper.ReadString("userDbId", string.Empty, Application.Context), "droid");
+                socket = new WebSocket("notificationSocket", 3031, AppHelper.ReadString(PreferenceKeys.UserDeviceId, string.Empty, Application.Context), AppHelper.ReadString(PreferenceKeys.UserIdKey, string.Empty, Application.Context), 1);
                 socket.Init();
             }
             else
@@ -96,7 +88,8 @@ namespace NotiShare.Services
                         {
                             ImageBase64 = icon != null ? GetImageString(icon) : string.Empty,
                             NotificationText = !string.IsNullOrEmpty(text) ? text : "Empty text",
-                            Title = !string.IsNullOrEmpty(title) ? title : "Empty title"
+                            Title = !string.IsNullOrEmpty(title) ? title : "Empty title",
+                            DatetimeCreation = DateTime.Now
                         }; // send to socket
                         var jsonString = JsonConvert.SerializeObject(notificationObjet);
                         socket.Send(jsonString);

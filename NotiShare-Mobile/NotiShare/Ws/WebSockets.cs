@@ -11,23 +11,21 @@ namespace NotiShare.Ws
 
         private int port;
 
-        private string id;
-
-        private string deviceDbId;
+    
+        private string userDeviceDbId;
 
         private string userDbId;//todo change db id
 
-        private string deviceType;//todo change device type
+        private int deviceType;//todo change device type
 
         private IWebSocketConnection connection;
 
 
-        public WebSocket(string url, int port, string id, string deviceDbId, string userDbId, string deviceType)
+        public WebSocket(string url, int port, string userDeviceDbId, string userDbId, int deviceType)
         {
             this.url = url;
             this.port = port;
-            this.id = id;
-            this.deviceDbId = deviceDbId;
+            this.userDeviceDbId = userDeviceDbId;
             this.userDbId = userDbId;
             this.deviceType = deviceType;
         }
@@ -41,7 +39,7 @@ namespace NotiShare.Ws
             connection.OnMessage += ConnectionOnMessage;
             connection.OnError += ConnectionOnError;
             connection.OnClosed += ConnectionOnClosed;
-            connection.Open($"{DefaultUrl}:{port}/{url}?id={id}&deviceId={deviceDbId}&userId={userDbId}&type={deviceType}");
+            connection.Open($"{DefaultUrl}:{port}/{url}?deviceId={userDeviceDbId}&userId={userDbId}&type={deviceType}");
         }
 
         private void ConnectionOnClosed()
