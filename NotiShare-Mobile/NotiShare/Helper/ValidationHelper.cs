@@ -57,7 +57,7 @@ namespace NotiShare.Helper
         internal static LoginObject CanAuthorize(Context context)
         {
             LoginObject returnObject = null;
-            var email = AppHelper.ReadString("email", string.Empty, context);
+            var email = AppHelper.ReadString("loginName", string.Empty, context);
             var password = AppHelper.ReadString("password", string.Empty, context);
             if ((!string.IsNullOrEmpty(email)) || (!string.IsNullOrEmpty(password)))
             {

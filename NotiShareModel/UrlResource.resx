@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ServerUrl" xml:space="preserve">
-    <value>http://192.168.100.6:3030</value>
+    <value>http://192.168.43.89:3030</value>
     <comment>Server address</comment>
   </data>
   <data name="WebSocketUrl" xml:space="preserve">
-    <value>ws://192.168.100.6</value>
+    <value>ws://192.168.43.89</value>
     <comment>WebSocket address</comment>
   </data>
 </root>

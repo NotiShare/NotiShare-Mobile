@@ -66,13 +66,12 @@ namespace NotiShare.Services
                 try
                 {
                     Log.Info(DebugConstant, "post notification");
-
                     var pack = sbn.PackageName;
                     var bundle = sbn.Notification.Extras;
                     title = bundle.GetString("android.title");
                     text = bundle.GetCharSequence("android.text");
-                    var iconInt = bundle.GetInt(Notification.ExtraSmallIcon);
-
+                    var iconInt = bundle.GetInt(Notification.ExtraLargeIconBig);
+                    var iconByte = bundle.GetByte(Notification.ExtraLargeIconBig);
                     var context = CreatePackageContext(pack, PackageContextFlags.IgnoreSecurity);
                     icon = ContextCompat.GetDrawable(context, iconInt);
 

@@ -81,7 +81,10 @@ namespace NotiShareModel.HttpWorker
 
         public void Close()
         {
-            connection.Close();
+            if (connection.IsOpen)
+            {
+                connection.Close();
+            }
         }
 
 

@@ -47,13 +47,12 @@ namespace NotiShare.Activity
             var deviceObject = new RegisterDeviceObject
             {
                 DeviceId = Build.Serial,
-                Email = AppHelper.ReadString("email", string.Empty, this),
-                DeviceType = "droid"
+                UserDeviceId = AppHelper.ReadString("email", string.Empty, this),
+                DeviceType = 1
             };
             var result = await HttpWorker.Instance.RegisterDevice(deviceObject);
             AppHelper.ShowToastText(this, result.Message);
-            AppHelper.WriteString("deviceDbId", result.DeviceDbId, this);
-            AppHelper.WriteString("userDbId", result.UserDbId, this);
+            AppHelper.WriteString("userDeviceDbId", result.UserDeviceDbId, this);
             progressLayout.Visibility = ViewStates.Gone;
             mainLayout.Visibility = ViewStates.Visible;
         }

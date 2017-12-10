@@ -9,11 +9,9 @@ namespace NotiShareModel.DataTypes
 {
     public class DeviceRegisterResult
     {
-        [JsonProperty(PropertyName = "idUser")]
-        public string UserDbId { get; set; }
+        [JsonProperty(PropertyName = "idUserDevice")]
+        public string UserDeviceDbId { get; set; }
 
-        [JsonProperty(PropertyName = "idDevice")]
-        public string DeviceDbId { get; set; }
 
         [JsonProperty(PropertyName = "message")]
         public string Message { get; set; }

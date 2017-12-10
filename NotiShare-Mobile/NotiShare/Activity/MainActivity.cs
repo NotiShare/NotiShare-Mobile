@@ -115,7 +115,7 @@ namespace NotiShare.Activity
             var result = await HttpWorker.Instance.Login(loginObject);
             if (result.Equals("Welcome"))
             {
-                AppHelper.WriteString("email", emailText.Text, this);
+                AppHelper.WriteString("loginName", emailText.Text, this);
                 AppHelper.WriteString("password", loginObject.PasswordHash, this);
                 var intent = new Intent(this, typeof(AppActivity));
                 Finish();
