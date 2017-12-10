@@ -1,7 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using System.Text.RegularExpressions;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Support.Design.Widget;
@@ -11,6 +8,7 @@ using Android.Views;
 using Android.Widget;
 using Java.Interop;
 using NotiShare.Helper;
+using NotiShareModel.CrossHelper;
 using NotiShareModel.DataTypes;
 using NotiShareModel.HttpWorker;
 
@@ -80,17 +78,17 @@ namespace NotiShare.Activity
         [Export("onRegister")]
         public async void RegisterClick(View view)
         { 
-            if (!ValidationHelper.CheckEmail(emailEditText.Text))
+            if (!CrossValidationHelper.CheckEmail(emailEditText.Text))
             {
                 ValidationHelper.PutErrorMessage(emailLayout, Resources.GetString(Resource.String.EmailError));
                 return;
             }
-            if (!ValidationHelper.ValidatePasswordLenght(passwordEditText.Text))
+            if (!CrossValidationHelper.ValidatePasswordLenght(passwordEditText.Text))
             {
                 ValidationHelper.PutErrorMessage(passwordInputLayout, Resources.GetString(Resource.String.PasswordLengthError));
                 return;
             }
-            if (!ValidationHelper.ValidatePasswords(passwordEditText.Text, passwrodRepeatEditText.Text))
+            if (!CrossValidationHelper.ValidatePasswords(passwordEditText.Text, passwrodRepeatEditText.Text))
             {
                 ValidationHelper.PutErrorMessage(passwordRepeaTextInputLayout, Resources.GetString(Resource.String.PasswordsDoNotMatch));
                 return;

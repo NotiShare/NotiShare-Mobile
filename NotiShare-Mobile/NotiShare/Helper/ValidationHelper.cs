@@ -18,26 +18,7 @@ namespace NotiShare.Helper
     internal static class ValidationHelper
     {
 
-        internal static bool CheckEmail(string inputEmail)
-        {
-            var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-            var match = regex.Match(inputEmail);
-            return match.Success;
-        }
-
-
-        internal static bool ValidatePasswordLenght(string password)
-        {
-            return password.Length > 5 && password.Length < 17;
-        }
-
-
-        internal static bool ValidatePasswords(string originalPassword, string repeatedPassword)
-        {
-            return originalPassword.Equals(repeatedPassword);
-        }
-
-
+       
         internal static void PutErrorMessage(TextInputLayout layout, string text)
         {
             layout.ErrorEnabled = true;
@@ -57,13 +38,13 @@ namespace NotiShare.Helper
         internal static LoginObject CanAuthorize(Context context)
         {
             LoginObject returnObject = null;
-            var email = AppHelper.ReadString("loginName", string.Empty, context);
-            var password = AppHelper.ReadString("password", string.Empty, context);
-            if ((!string.IsNullOrEmpty(email)) || (!string.IsNullOrEmpty(password)))
+            var user = AppHelper.ReadString(PreferenceKeys.LoginKey, string.Empty, context);
+            var password = AppHelper.ReadString(PreferenceKeys.PasswordHash, string.Empty, context);
+            if ((!string.IsNullOrEmpty(user)) || (!string.IsNullOrEmpty(password)))
             {
                 returnObject = new LoginObject
                 {
-                    Email = email,
+                    UserName = user,
                     PasswordHash = password
                 };
             }

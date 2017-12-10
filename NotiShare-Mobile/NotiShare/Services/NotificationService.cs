@@ -21,7 +21,7 @@ using Java.IO;
 using Newtonsoft.Json;
 using NotiShare.Helper;
 using NotiShareModel.DataTypes;
-using NotiShareModel.HttpWorker;
+using NotiShare.Ws;
 
 namespace NotiShare.Services
 {
@@ -61,18 +61,31 @@ namespace NotiShare.Services
             var preference = PreferenceManager.GetDefaultSharedPreferences(Application.Context);
             string title, text;
             Drawable icon = null;
-            if (preference.GetBoolean("notification", false))
+            if (preference.GetBoolean(PreferenceKeys.NotificationKey, false))
             {
                 try
                 {
                     Log.Info(DebugConstant, "post notification");
                     var pack = sbn.PackageName;
                     var bundle = sbn.Notification.Extras;
-                    title = bundle.GetString("android.title");
-                    text = bundle.GetCharSequence("android.text");
-                    var iconInt = bundle.GetInt(Notification.ExtraLargeIconBig);
-                    var iconByte = bundle.GetByte(Notification.ExtraLargeIconBig);
-                    var context = CreatePackageContext(pack, PackageContextFlags.IgnoreSecurity);
+                    title = bundle.GetString(Notification.ExtraTitle);
+                    text = bundle.GetString(Notification.ExtraText);
+                    var iconInt = bundle.GetInt(Notification.ExtraSmallIcon);
+                    try
+                    {
+                        var iconByte = bundle.GetByteArray(Notification.ExtraLargeIconBig);
+                        if (iconByte != null)
+                        {
+                            Log.Debug(DebugConstant, "Got big Icon");
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Debug(DebugConstant, e.StackTrace);
+                    }
+
+
+                var context = CreatePackageContext(pack, PackageContextFlags.IgnoreSecurity);
                     icon = ContextCompat.GetDrawable(context, iconInt);
 
 

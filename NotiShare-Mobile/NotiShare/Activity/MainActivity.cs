@@ -12,6 +12,7 @@ using Java.Interop;
 using NotiShare.Helper;
 using NotiShareModel.DataTypes;
 using NotiShareModel.HttpWorker;
+using NotiShareModel.CrossHelper;
 
 namespace NotiShare.Activity
 {
@@ -53,7 +54,7 @@ namespace NotiShare.Activity
             if (loginObject != null)
             {
                 var result = await HttpWorker.Instance.Login(loginObject);
-                if (result.Equals("Welcome"))
+                if (result.Message.Equals("Welcome"))
                 {
                     var intent = new Intent(this, typeof(AppActivity));
                     Finish();
@@ -61,7 +62,7 @@ namespace NotiShare.Activity
                 }
                 else
                 {
-                    AppHelper.ShowToastText(this, result);
+                    AppHelper.ShowToastText(this, result.Message);
                     progressBar.Visibility = ViewStates.Gone;
                     mainLayout.Visibility = ViewStates.Visible;
                 }
@@ -95,12 +96,12 @@ namespace NotiShare.Activity
         public async void LoginClick(View view)
         {
             
-            if (!ValidationHelper.CheckEmail(emailText.Text))
+            if (!CrossValidationHelper.CheckEmail(emailText.Text))
             {
                 ValidationHelper.PutErrorMessage(emailInputLayout, Resources.GetString(Resource.String.EmailError));
                 return;
             }
-            if (!ValidationHelper.ValidatePasswordLenght(passwordText.Text))
+            if (!CrossValidationHelper.ValidatePasswordLenght(passwordText.Text))
             {
                 ValidationHelper.PutErrorMessage(passwordInputLayout, Resources.GetString(Resource.String.PasswordLengthError));
                 return;
@@ -109,21 +110,22 @@ namespace NotiShare.Activity
             mainLayout.Visibility = ViewStates.Gone;
             var loginObject = new LoginObject
             {
-                Email = emailText.Text,
+                UserName = emailText.Text,
                 PasswordHash = HashHelper.GetHashString(passwordText.Text)
             };
             var result = await HttpWorker.Instance.Login(loginObject);
-            if (result.Equals("Welcome"))
+            if (result.Message.Equals("Welcome"))
             {
-                AppHelper.WriteString("loginName", emailText.Text, this);
-                AppHelper.WriteString("password", loginObject.PasswordHash, this);
+                AppHelper.WriteString(PreferenceKeys.LoginKey, emailText.Text, this);
+                AppHelper.WriteString(PreferenceKeys.PasswordHash, loginObject.PasswordHash, this);
+                AppHelper.WriteInt(PreferenceKeys.UserIdKey, result.UserId, this);
                 var intent = new Intent(this, typeof(AppActivity));
                 Finish();
                 StartActivity(intent);
             }
             else
             {
-                AppHelper.ShowToastText(this, result);
+                AppHelper.ShowToastText(this, result.Message);
                 progressBar.Visibility = ViewStates.Gone;
                 mainLayout.Visibility = ViewStates.Visible;
             }

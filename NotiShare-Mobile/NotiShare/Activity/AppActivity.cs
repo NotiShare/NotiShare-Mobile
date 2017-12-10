@@ -40,20 +40,20 @@ namespace NotiShare.Activity
             base.OnAttachedToWindow();
             if (!IsHaveSerial())
             {
-                AppHelper.ClearValue("email", this);
-                AppHelper.ClearValue("password", this);
+                AppHelper.ClearValue(PreferenceKeys.LoginKey, this);
+                AppHelper.ClearValue(PreferenceKeys.PasswordHash, this);
                 return;
             }
             var deviceObject = new RegisterDeviceObject
             {
                 DeviceId = Build.Serial,
-                UserId = AppHelper.ReadString("email", string.Empty, this),//todo put user id here
+                UserId = AppHelper.ReadInt(PreferenceKeys.UserIdKey, this, -1),
                 DeviceType = 1,
                 DeviceName = Build.Model
             };
             var result = await HttpWorker.Instance.RegisterDevice(deviceObject);
             AppHelper.ShowToastText(this, result.Message);
-            AppHelper.WriteString("userDeviceDbId", result.UserDeviceDbId, this);
+            AppHelper.WriteInt(PreferenceKeys.UserDeviceId, result.UserDeviceDbId, this);
             progressLayout.Visibility = ViewStates.Gone;
             mainLayout.Visibility = ViewStates.Visible;
         }
@@ -64,8 +64,10 @@ namespace NotiShare.Activity
         [Export("onLogout")]
         public void Logout(View view)
         {
-            AppHelper.ClearValue("email", this);
-            AppHelper.ClearValue("password", this);
+            AppHelper.ClearValue(PreferenceKeys.LoginKey, this);
+            AppHelper.ClearValue(PreferenceKeys.PasswordHash, this);
+            AppHelper.ClearValue(PreferenceKeys.UserDeviceId, this);
+            AppHelper.ClearValue(PreferenceKeys.UserIdKey, this);
             var intent = new Intent(this, typeof(MainActivity));
             StartActivity(intent);
             Finish();

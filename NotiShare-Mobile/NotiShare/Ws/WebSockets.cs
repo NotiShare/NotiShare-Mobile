@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Websockets;
 
-namespace NotiShareModel.HttpWorker
+namespace NotiShare.Ws
 {
     public class WebSocket
     {
-        private readonly string DefaultUrl = UrlResource.WebSocketUrl;
+        private readonly string DefaultUrl = "ws://192.168.43.89";
 
         private string url;
 
@@ -20,9 +15,9 @@ namespace NotiShareModel.HttpWorker
 
         private string deviceDbId;
 
-        private string userDbId;
+        private string userDbId;//todo change db id
 
-        private string deviceType;
+        private string deviceType;//todo change device type
 
         private IWebSocketConnection connection;
 

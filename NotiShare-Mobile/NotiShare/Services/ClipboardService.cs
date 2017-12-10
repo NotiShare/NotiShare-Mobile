@@ -14,7 +14,7 @@ using Android.Views;
 using Android.Webkit;
 using Android.Widget;
 using NotiShare.Helper;
-using NotiShareModel.HttpWorker;
+using NotiShare.Ws;
 
 namespace NotiShare.Services
 {

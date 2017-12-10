@@ -16,6 +16,9 @@ namespace NotiShare.Helper
 {
     internal static class AppHelper
     {
+
+        
+
         internal static void ShowToastText(Context context, string text)
         {
             Toast.MakeText(context, text, ToastLength.Short).Show();
@@ -51,6 +54,22 @@ namespace NotiShare.Helper
             var editor = preference.Edit();
             editor.PutBoolean(key, value);
             editor.Apply();
+        }
+
+
+        internal static void WriteInt(string key, int value, Context context)
+        {
+            var preference = GetPreferences(context);
+            var editor = preference.Edit();
+            editor.PutInt(key, value);
+            editor.Apply();
+        }
+
+
+        internal static int ReadInt(string key, Context context, int defaultValue)
+        {
+            var preference = GetPreferences(context);
+            return preference.GetInt(key, defaultValue);
         }
 
         internal static bool ReadBool(string key, Context context, bool defaulValue)

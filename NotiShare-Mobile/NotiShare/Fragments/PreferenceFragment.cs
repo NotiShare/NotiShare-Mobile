@@ -28,7 +28,7 @@ namespace NotiShare.Fragments
             CheckServices();
             AddPreferencesFromResource(Resource.Layout.preference_layout);
             PreferenceManager.GetDefaultSharedPreferences(Activity).RegisterOnSharedPreferenceChangeListener(this);
-            notificationPreference = (CheckBoxPreference) FindPreference("notification");
+            notificationPreference = (CheckBoxPreference) FindPreference(PreferenceKeys.NotificationKey);
             // Create your fragment here
         }
 
@@ -80,7 +80,7 @@ namespace NotiShare.Fragments
                 var dialog = new AlertDialog.Builder(Activity);
                 dialog.SetTitle(Resources.GetString(Resource.String.NotificationDialogTitle));
                 dialog.SetMessage(Resources.GetString(Resource.String.NotificationDialogMessage));
-                dialog.SetNegativeButton("OK", (sender, args) =>
+                dialog.SetPositiveButton("OK", (sender, args) =>
                 {
                     StartActivity(new Intent(Settings.ActionNotificationListenerSettings));
                     Activity.StartService(currentIntent);
@@ -98,7 +98,7 @@ namespace NotiShare.Fragments
 
         public void OnCancel(IDialogInterface dialog)
         {
-            AppHelper.WriteBool("notification", false, Context);
+            AppHelper.WriteBool(PreferenceKeys.NotificationKey, false, Context);
             notificationPreference.Checked = false;
         }
 
@@ -107,11 +107,11 @@ namespace NotiShare.Fragments
         {
             if (!AppHelper.IsServiceEnable("com.fezz.notishare.ClipboardService", Context))
             {
-                AppHelper.WriteBool("clipboard", false, Context);
+                AppHelper.WriteBool(PreferenceKeys.ClipboardKey, false, Context);
             }
             if (!AppHelper.IsServiceEnable("com.fezz.notishare.NotificationService", Context))
             {
-                AppHelper.WriteBool("notification", false, Context);
+                AppHelper.WriteBool(PreferenceKeys.NotificationKey, false, Context);
             }
         }
     }
