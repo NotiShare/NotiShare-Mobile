@@ -138,6 +138,7 @@
     <Compile Include="Ws\WebSockets.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\values\dimens.xml" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />

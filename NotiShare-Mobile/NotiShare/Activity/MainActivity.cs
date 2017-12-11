@@ -20,8 +20,8 @@ namespace NotiShare.Activity
     public class MainActivity : AppCompatActivity
     {
 
-        private TextInputLayout emailInputLayout, passwordInputLayout;
-        private TextInputEditText emailText, passwordText;
+        private TextInputLayout loginInputLayout, passwordInputLayout;
+        private TextInputEditText loginText, passwordText;
         private RelativeLayout progressBar, mainLayout;
         
         protected override void OnCreate(Bundle bundle)
@@ -30,17 +30,17 @@ namespace NotiShare.Activity
             Websockets.Droid.WebsocketConnection.Link();
             SetContentView(Resource.Layout.login_screen);
 
-            emailInputLayout = FindViewById<TextInputLayout>(Resource.Id.emailField);
+            loginInputLayout = FindViewById<TextInputLayout>(Resource.Id.loginField);
             passwordInputLayout = FindViewById<TextInputLayout>(Resource.Id.passwordField);
 
-            emailText = FindViewById<TextInputEditText>(Resource.Id.emailEditText);
+            loginText = FindViewById<TextInputEditText>(Resource.Id.loginEditText);
             passwordText = FindViewById<TextInputEditText>(Resource.Id.passwordEditText);
 
             progressBar = FindViewById<RelativeLayout>(Resource.Id.progressBar);
             mainLayout = FindViewById<RelativeLayout>(Resource.Id.homeLayout);
             
 
-            emailText.TextChanged += EmailTextOnTextChanged;
+            loginText.TextChanged += EmailTextOnTextChanged;
             passwordText.TextChanged += PasswordTextOnTextChanged;
             // Set our view from the "main" layout resource
             // SetContentView (Resource.Layout.Main);
@@ -70,7 +70,7 @@ namespace NotiShare.Activity
             else
             {
                 progressBar.Visibility = ViewStates.Gone;
-                    mainLayout.Visibility = ViewStates.Visible;
+                mainLayout.Visibility = ViewStates.Visible;
             }
         }
 
@@ -81,7 +81,7 @@ namespace NotiShare.Activity
 
         private void EmailTextOnTextChanged(object sender, TextChangedEventArgs textChangedEventArgs)
         {
-            ValidationHelper.DisableError(emailInputLayout);
+            ValidationHelper.DisableError(loginInputLayout);
         }
 
 
@@ -95,12 +95,6 @@ namespace NotiShare.Activity
         [Export("onLogin")]
         public async void LoginClick(View view)
         {
-            
-            if (!CrossValidationHelper.CheckEmail(emailText.Text))
-            {
-                ValidationHelper.PutErrorMessage(emailInputLayout, Resources.GetString(Resource.String.EmailError));
-                return;
-            }
             if (!CrossValidationHelper.ValidatePasswordLenght(passwordText.Text))
             {
                 ValidationHelper.PutErrorMessage(passwordInputLayout, Resources.GetString(Resource.String.PasswordLengthError));
@@ -110,13 +104,13 @@ namespace NotiShare.Activity
             mainLayout.Visibility = ViewStates.Gone;
             var loginObject = new LoginObject
             {
-                UserName = emailText.Text,
+                UserName = loginText.Text,
                 PasswordHash = HashHelper.GetHashString(passwordText.Text)
             };
             var result = await HttpWorker.Instance.Login(loginObject);
             if (result.Message.Equals("Welcome"))
             {
-                AppHelper.WriteString(PreferenceKeys.LoginKey, emailText.Text, this);
+                AppHelper.WriteString(PreferenceKeys.LoginKey, loginText.Text, this);
                 AppHelper.WriteString(PreferenceKeys.PasswordHash, loginObject.PasswordHash, this);
                 AppHelper.WriteInt(PreferenceKeys.UserIdKey, result.UserId, this);
                 var intent = new Intent(this, typeof(AppActivity));

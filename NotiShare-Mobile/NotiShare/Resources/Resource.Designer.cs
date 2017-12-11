@@ -1926,6 +1926,9 @@ namespace NotiShare
 			// aapt resource value: 0x7f060002
 			public const int item_touch_helper_swipe_escape_velocity = 2131099650;
 			
+			// aapt resource value: 0x7f06008f
+			public const int left_right_margin = 2131099791;
+			
 			// aapt resource value: 0x7f06005e
 			public const int notification_action_icon_size = 2131099742;
 			
@@ -1982,6 +1985,12 @@ namespace NotiShare
 			
 			// aapt resource value: 0x7f060006
 			public const int preference_seekbar_value_width = 2131099654;
+			
+			// aapt resource value: 0x7f060090
+			public const int top_margin = 2131099792;
+			
+			// aapt resource value: 0x7f060091
+			public const int zero_dp = 2131099793;
 			
 			static Dimension()
 			{
@@ -2492,17 +2501,11 @@ namespace NotiShare
 			// aapt resource value: 0x7f070066
 			public const int edit_query = 2131165286;
 			
-			// aapt resource value: 0x7f070083
-			public const int emailEditText = 2131165315;
+			// aapt resource value: 0x7f0700aa
+			public const int emailInput = 2131165354;
 			
-			// aapt resource value: 0x7f070082
-			public const int emailField = 2131165314;
-			
-			// aapt resource value: 0x7f0700a5
-			public const int emailInput = 2131165349;
-			
-			// aapt resource value: 0x7f0700a6
-			public const int emailTextEdit = 2131165350;
+			// aapt resource value: 0x7f0700ab
+			public const int emailTextEdit = 2131165355;
 			
 			// aapt resource value: 0x7f070021
 			public const int end = 2131165217;
@@ -2591,11 +2594,20 @@ namespace NotiShare
 			// aapt resource value: 0x7f070086
 			public const int loginButton = 2131165318;
 			
+			// aapt resource value: 0x7f070083
+			public const int loginEditText = 2131165315;
+			
+			// aapt resource value: 0x7f070082
+			public const int loginField = 2131165314;
+			
+			// aapt resource value: 0x7f0700a5
+			public const int loginNameInput = 2131165349;
+			
 			// aapt resource value: 0x7f070074
 			public const int mainLayout = 2131165300;
 			
-			// aapt resource value: 0x7f0700ab
-			public const int masked = 2131165355;
+			// aapt resource value: 0x7f0700b0
+			public const int masked = 2131165360;
 			
 			// aapt resource value: 0x7f07008e
 			public const int media_actions = 2131165326;
@@ -2660,11 +2672,11 @@ namespace NotiShare
 			// aapt resource value: 0x7f070087
 			public const int registerButton = 2131165319;
 			
-			// aapt resource value: 0x7f0700a7
-			public const int repeatPasswordField = 2131165351;
+			// aapt resource value: 0x7f0700ac
+			public const int repeatPasswordField = 2131165356;
 			
-			// aapt resource value: 0x7f0700a8
-			public const int repeatpasswordEditText = 2131165352;
+			// aapt resource value: 0x7f0700ad
+			public const int repeatpasswordEditText = 2131165357;
 			
 			// aapt resource value: 0x7f070035
 			public const int right = 2131165237;
@@ -2732,8 +2744,8 @@ namespace NotiShare
 			// aapt resource value: 0x7f070072
 			public const int select_dialog_listview = 2131165298;
 			
-			// aapt resource value: 0x7f0700a9
-			public const int settings_fragment = 2131165353;
+			// aapt resource value: 0x7f0700ae
+			public const int settings_fragment = 2131165358;
 			
 			// aapt resource value: 0x7f07005c
 			public const int shortcut = 2131165276;
@@ -2788,6 +2800,12 @@ namespace NotiShare
 			
 			// aapt resource value: 0x7f07006f
 			public const int submit_area = 2131165295;
+			
+			// aapt resource value: 0x7f0700a9
+			public const int surnameEditText = 2131165353;
+			
+			// aapt resource value: 0x7f0700a8
+			public const int surnameField = 2131165352;
 			
 			// aapt resource value: 0x7f0700a4
 			public const int switchWidget = 2131165348;
@@ -2849,11 +2867,17 @@ namespace NotiShare
 			// aapt resource value: 0x7f070018
 			public const int useLogo = 2131165208;
 			
+			// aapt resource value: 0x7f0700a7
+			public const int userNameEditText = 2131165351;
+			
+			// aapt resource value: 0x7f0700a6
+			public const int userNameField = 2131165350;
+			
 			// aapt resource value: 0x7f07000e
 			public const int view_offset_helper = 2131165198;
 			
-			// aapt resource value: 0x7f0700aa
-			public const int visible = 2131165354;
+			// aapt resource value: 0x7f0700af
+			public const int visible = 2131165359;
 			
 			// aapt resource value: 0x7f070027
 			public const int withText = 2131165223;

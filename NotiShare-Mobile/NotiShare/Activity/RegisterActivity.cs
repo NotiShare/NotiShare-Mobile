@@ -14,11 +14,11 @@ using NotiShareModel.HttpWorker;
 
 namespace NotiShare.Activity
 {
-    [Activity(Label = "@string/Register",ScreenOrientation = ScreenOrientation.Portrait, Theme = "@style/Theme.AppCompat.Light.DarkActionBar")]
+    [Activity(Label = "@string/Register", ScreenOrientation = ScreenOrientation.Portrait, Theme = "@style/Theme.AppCompat.Light.DarkActionBar")]
     public class RegisterActivity : AppCompatActivity
     {
-        private TextInputLayout emailLayout, passwordInputLayout, passwordRepeaTextInputLayout;
-        private TextInputEditText emailEditText, passwordEditText, passwrodRepeatEditText;
+        private TextInputLayout emailLayout, passwordInputLayout, passwordRepeaTextInputLayout, userNameInputLayout;
+        private TextInputEditText emailEditText, passwordEditText, passwrodRepeatEditText, userNameInputEditText, nameEditText, surnamEditText;
         private RelativeLayout progressBar, mainLayout;
 
 
@@ -32,6 +32,8 @@ namespace NotiShare.Activity
             emailLayout = FindViewById<TextInputLayout>(Resource.Id.emailInput);
             passwordInputLayout = FindViewById<TextInputLayout>(Resource.Id.passwordField);
             passwordRepeaTextInputLayout = FindViewById<TextInputLayout>(Resource.Id.repeatPasswordField);
+            userNameInputLayout = FindViewById<TextInputLayout>(Resource.Id.loginNameInput);
+            
 
             progressBar = FindViewById<RelativeLayout>(Resource.Id.progressBar);
             mainLayout = FindViewById<RelativeLayout>(Resource.Id.homeLayout);
@@ -39,6 +41,9 @@ namespace NotiShare.Activity
             emailEditText = FindViewById<TextInputEditText>(Resource.Id.emailTextEdit);
             passwordEditText = FindViewById<TextInputEditText>(Resource.Id.passwordEditText);
             passwrodRepeatEditText = FindViewById<TextInputEditText>(Resource.Id.repeatpasswordEditText);
+            userNameInputEditText = FindViewById<TextInputEditText>(Resource.Id.loginEditText);
+            nameEditText = FindViewById<TextInputEditText>(Resource.Id.userNameEditText);
+            surnamEditText = FindViewById<TextInputEditText>(Resource.Id.surnameEditText);
 
             emailEditText.TextChanged += EmailEditTextOnTextChanged;
             passwordEditText.TextChanged += PasswordEditTextOnTextChanged;
@@ -99,7 +104,10 @@ namespace NotiShare.Activity
             var registerObject = new RegistrationObject
             {
                 Email = emailEditText.Text,
-                PasswordHash = HashHelper.GetHashString(passwordEditText.Text)
+                PasswordHash = HashHelper.GetHashString(passwordEditText.Text),
+                Name = nameEditText.Text,
+                Surname = surnamEditText.Text,
+                UserName = userNameInputEditText.Text
             };
             var result = await HttpWorker.Instance.RegisterUser(registerObject);
             if (result.Equals("Registered"))
