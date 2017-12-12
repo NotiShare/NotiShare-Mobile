@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -16,7 +17,7 @@ using NotiShareModel.CrossHelper;
 
 namespace NotiShare.Activity
 {
-    [Activity(Theme = "@style/Theme.AppCompat.Light.DarkActionBar",ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon", MainLauncher = true)]
+    [Activity(ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
 
@@ -27,8 +28,8 @@ namespace NotiShare.Activity
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            Websockets.Droid.WebsocketConnection.Link();
-            SetContentView(Resource.Layout.login_screen);
+           
+            SetContentView(Resource.Layout.login_layout);
 
             loginInputLayout = FindViewById<TextInputLayout>(Resource.Id.loginField);
             passwordInputLayout = FindViewById<TextInputLayout>(Resource.Id.passwordField);
@@ -42,6 +43,8 @@ namespace NotiShare.Activity
 
             loginText.TextChanged += EmailTextOnTextChanged;
             passwordText.TextChanged += PasswordTextOnTextChanged;
+
+            Websockets.Droid.WebsocketConnection.Link();
             // Set our view from the "main" layout resource
             // SetContentView (Resource.Layout.Main);
         }
@@ -102,11 +105,15 @@ namespace NotiShare.Activity
             }
             progressBar.Visibility = ViewStates.Visible;
             mainLayout.Visibility = ViewStates.Gone;
-            var loginObject = new LoginObject
+            LoginObject loginObject = null;
+            await Task.Run(() =>
             {
-                UserName = loginText.Text,
-                PasswordHash = HashHelper.GetHashString(passwordText.Text)
-            };
+                loginObject = new LoginObject
+                {
+                    UserName = loginText.Text,
+                    PasswordHash = HashHelper.GetHashString(passwordText.Text)
+                };
+            });
             var result = await HttpWorker.Instance.Login(loginObject);
             if (result.Message.Equals("Welcome"))
             {

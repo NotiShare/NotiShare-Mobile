@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using System.Threading.Tasks;
+using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Android.Support.Design.Widget;
@@ -14,7 +15,7 @@ using NotiShareModel.HttpWorker;
 
 namespace NotiShare.Activity
 {
-    [Activity(Label = "@string/Register", ScreenOrientation = ScreenOrientation.Portrait, Theme = "@style/Theme.AppCompat.Light.DarkActionBar")]
+    [Activity(Label = "@string/Register", ScreenOrientation = ScreenOrientation.Portrait)]
     public class RegisterActivity : AppCompatActivity
     {
         private TextInputLayout emailLayout, passwordInputLayout, passwordRepeaTextInputLayout, userNameInputLayout;
@@ -101,14 +102,18 @@ namespace NotiShare.Activity
             progressBar.Visibility = ViewStates.Visible;
             mainLayout.Visibility = ViewStates.Gone;
             SupportActionBar.Hide();
-            var registerObject = new RegistrationObject
+            RegistrationObject registerObject = null;
+            await Task.Run(() =>
             {
-                Email = emailEditText.Text,
-                PasswordHash = HashHelper.GetHashString(passwordEditText.Text),
-                Name = nameEditText.Text,
-                Surname = surnamEditText.Text,
-                UserName = userNameInputEditText.Text
-            };
+                registerObject = new RegistrationObject
+                {
+                    Email = emailEditText.Text,
+                    PasswordHash = HashHelper.GetHashString(passwordEditText.Text),
+                    Name = nameEditText.Text,
+                    Surname = surnamEditText.Text,
+                    UserName = userNameInputEditText.Text
+                };
+            });
             var result = await HttpWorker.Instance.RegisterUser(registerObject);
             if (result.Equals("Registered"))
             {

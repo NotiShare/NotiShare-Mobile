@@ -150,7 +150,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Progressbar.axml" />
-    <AndroidResource Include="Resources\layout\login_screen.axml">
+    <AndroidResource Include="Resources\layout\login_layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\register_layout.axml">

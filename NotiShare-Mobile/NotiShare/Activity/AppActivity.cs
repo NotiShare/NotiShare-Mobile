@@ -21,7 +21,7 @@ using AlertDialog = Android.App.AlertDialog;
 
 namespace NotiShare.Activity
 {
-    [Activity(ScreenOrientation = ScreenOrientation.Portrait, Label = "@string/Action", Theme = "@style/Theme.AppCompat.Light.DarkActionBar")]
+    [Activity(ScreenOrientation = ScreenOrientation.Portrait, Label = "@string/Action")]
     public class AppActivity : AppCompatActivity
     {
 

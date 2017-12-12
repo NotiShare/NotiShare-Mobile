@@ -33,7 +33,7 @@ namespace NotiShare.Services
         {
             if (socket == null)
             {
-                socket = new WebSocket("notificationSocket", 3031, AppHelper.ReadString(PreferenceKeys.UserDeviceId, string.Empty, Application.Context), AppHelper.ReadString(PreferenceKeys.UserIdKey, string.Empty, Application.Context), 1);
+                socket = new WebSocket("notificationSocket", 3031, AppHelper.ReadInt(PreferenceKeys.UserDeviceId, Application.Context, -1), AppHelper.ReadInt(PreferenceKeys.UserIdKey, Application.Context, -1), 1);
                 socket.Init();
             }
             else
@@ -62,11 +62,14 @@ namespace NotiShare.Services
                     var bundle = sbn.Notification.Extras;
                     title = bundle.GetString(Notification.ExtraTitle);
                     text = bundle.GetString(Notification.ExtraText);
+                    
                     var iconInt = bundle.GetInt(Notification.ExtraSmallIcon);
                     try
                     {
-                        var iconByte = bundle.GetByteArray(Notification.ExtraLargeIconBig);
-                        if (iconByte != null)
+                        var bigIcon = sbn.Notification.GetLargeIcon();
+                        var smallIcon = sbn.Notification.SmallIcon;
+                        
+                        if (bigIcon != null)
                         {
                             Log.Debug(DebugConstant, "Got big Icon");
                         }

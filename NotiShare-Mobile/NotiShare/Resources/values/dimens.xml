@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
     <dimen name="left_right_margin">25dp</dimen>
-    <dimen name="top_margin">50dp</dimen>
+    <dimen name="top_margin">25dp</dimen>
     <dimen name="zero_dp">0dp</dimen>
+    <dimen name="top_layout_margin">50dp</dimen>
 </resources>

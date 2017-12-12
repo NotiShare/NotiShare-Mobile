@@ -5,23 +5,23 @@ namespace NotiShare.Ws
 {
     public class WebSocket
     {
-        private readonly string DefaultUrl = "ws://192.168.43.89";
+        private readonly string DefaultUrl = "ws://192.168.100.5";
 
         private string url;
 
         private int port;
 
     
-        private string userDeviceDbId;
+        private int userDeviceDbId;
 
-        private string userDbId;//todo change db id
+        private int userDbId;//todo change db id
 
         private int deviceType;//todo change device type
 
         private IWebSocketConnection connection;
 
 
-        public WebSocket(string url, int port, string userDeviceDbId, string userDbId, int deviceType)
+        public WebSocket(string url, int port, int userDeviceDbId, int userDbId, int deviceType)
         {
             this.url = url;
             this.port = port;

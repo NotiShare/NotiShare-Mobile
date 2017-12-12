@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="25px"
@@ -11,7 +10,6 @@
         layout="@layout/Progressbar"
         android:visibility="visible" />
     <RelativeLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/homeLayout"
@@ -29,10 +27,11 @@
                 android:layout_marginRight="@dimen/left_right_margin">
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
-                    android:hint="@string/Email"
+                    android:hint="@string/LoginName"
                     android:layout_height="wrap_content"
                     android:id="@+id/loginEditText"
-                    android:maxLines="1" />
+                    android:maxLines="1" 
+                    android:inputType="text"/>
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/passwordField"
@@ -47,7 +46,8 @@
                     android:layout_height="wrap_content"
                     android:password="true"
                     android:id="@+id/passwordEditText"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:inputType="text"/>
             </android.support.design.widget.TextInputLayout>
             <LinearLayout
                 android:layout_height="wrap_content"

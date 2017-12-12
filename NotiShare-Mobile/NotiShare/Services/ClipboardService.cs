@@ -43,7 +43,7 @@ namespace NotiShare.Services
             base.OnCreate();
             clipboardManager = (ClipboardManager) GetSystemService(ClipboardService);
             clipboardManager.AddPrimaryClipChangedListener(this);
-            socket = new WebSocket("clipboardSocket", 3032, AppHelper.ReadString(PreferenceKeys.UserDeviceId, string.Empty, Application.Context), AppHelper.ReadString(PreferenceKeys.UserIdKey, string.Empty, Application.Context), 1);
+            socket = new WebSocket("clipboardSocket", 3032, AppHelper.ReadInt(PreferenceKeys.UserDeviceId, Application.Context, -1), AppHelper.ReadInt(PreferenceKeys.UserIdKey, Application.Context, -1), 1);
             socket.Init();
         }
 

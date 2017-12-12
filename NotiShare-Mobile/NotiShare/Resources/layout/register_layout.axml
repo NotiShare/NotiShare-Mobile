@@ -1,120 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:minWidth="25px"
-    android:minHeight="25px">
+    android:layout_height="match_parent">
     <include
         android:id="@+id/progressBar"
         layout="@layout/Progressbar"
         android:visibility="gone" />
     <RelativeLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/homeLayout"
         android:visibility="visible">
-        <LinearLayout
-            android:orientation="vertical"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/loginNameInput"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/left_right_margin"
-                android:layout_marginRight="@dimen/left_right_margin">
-                <android.support.design.widget.TextInputEditText
+                android:layout_centerInParent="true">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/loginNameInput"
                     android:layout_width="match_parent"
-                    android:hint="@string/RepeatPassword"
                     android:layout_height="wrap_content"
-                    android:id="@+id/loginEditText"
-                    android:maxLines="1" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/userNameField"
-                android:layout_marginTop="@dimen/top_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/left_right_margin"
-                android:layout_marginRight="@dimen/left_right_margin">
-                <android.support.design.widget.TextInputEditText
+                    android:layout_marginLeft="@dimen/left_right_margin"
+                    android:layout_marginRight="@dimen/left_right_margin"
+                    android:layout_marginTop ="@dimen/top_layout_margin">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:hint="@string/LoginName"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/loginEditText"
+                        android:maxLines="1" 
+                        android:inputType="text"/>
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/userNameField"
+                    android:layout_marginTop="@dimen/top_margin"
                     android:layout_width="match_parent"
-                    android:hint="@string/RepeatPassword"
                     android:layout_height="wrap_content"
-                    android:id="@+id/userNameEditText"
-                    android:maxLines="1"/>
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/surnameField"
-                android:layout_marginTop="@dimen/top_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/left_right_margin"
-                android:layout_marginRight="@dimen/left_right_margin">
-                <android.support.design.widget.TextInputEditText
+                    android:layout_marginLeft="@dimen/left_right_margin"
+                    android:layout_marginRight="@dimen/left_right_margin">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:hint="@string/Name"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/userNameEditText"
+                        android:maxLines="1"
+                        android:inputType="text"/>
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/surnameField"
+                    android:layout_marginTop="@dimen/top_margin"
                     android:layout_width="match_parent"
-                    android:hint="@string/RepeatPassword"
                     android:layout_height="wrap_content"
-                    android:id="@+id/surnameEditText"
-                    android:maxLines="1"/>
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/emailInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/top_margin"
-                android:layout_marginLeft="@dimen/left_right_margin"
-                android:layout_marginRight="@dimen/left_right_margin">
-                <android.support.design.widget.TextInputEditText
+                    android:layout_marginLeft="@dimen/left_right_margin"
+                    android:layout_marginRight="@dimen/left_right_margin">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:hint="@string/Surname"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/surnameEditText"
+                        android:maxLines="1"
+                        android:inputType="text"/>
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/emailInput"
                     android:layout_width="match_parent"
-                    android:hint="@string/Email"
                     android:layout_height="wrap_content"
-                    android:id="@+id/emailTextEdit"
-                    android:maxLines="1" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/passwordField"
-                android:layout_marginTop="@dimen/top_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/left_right_margin"
-                android:layout_marginRight="@dimen/left_right_margin">
-                <android.support.design.widget.TextInputEditText
+                    android:layout_marginTop="@dimen/top_margin"
+                    android:layout_marginLeft="@dimen/left_right_margin"
+                    android:layout_marginRight="@dimen/left_right_margin">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:hint="@string/Email"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/emailTextEdit"
+                        android:maxLines="1" 
+                        android:inputType="text"/>
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/passwordField"
+                    android:layout_marginTop="@dimen/top_margin"
                     android:layout_width="match_parent"
-                    android:hint="@string/Password"
                     android:layout_height="wrap_content"
-                    android:password="true"
-                    android:id="@+id/passwordEditText"
-                    android:maxLines="1" />
-            </android.support.design.widget.TextInputLayout>
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/repeatPasswordField"
-                android:layout_marginTop="@dimen/top_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/left_right_margin"
-                android:layout_marginRight="@dimen/left_right_margin">
-                <android.support.design.widget.TextInputEditText
+                    android:layout_marginLeft="@dimen/left_right_margin"
+                    android:layout_marginRight="@dimen/left_right_margin">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:hint="@string/Password"
+                        android:layout_height="wrap_content"
+                        android:password="true"
+                        android:id="@+id/passwordEditText"
+                        android:maxLines="1" 
+                        android:inputType="text"/>
+                </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/repeatPasswordField"
+                    android:layout_marginTop="@dimen/top_margin"
                     android:layout_width="match_parent"
-                    android:hint="@string/RepeatPassword"
                     android:layout_height="wrap_content"
-                    android:password="true"
-                    android:id="@+id/repeatpasswordEditText"
-                    android:maxLines="1" />
-            </android.support.design.widget.TextInputLayout>
-            <Button
-                android:layout_marginTop="@dimen/top_margin"
-                android:layout_marginLeft="@dimen/left_right_margin"
-                android:layout_marginRight="@dimen/left_right_margin"
-                android:id="@+id/registerButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Register"
-                android:onClick="onRegister" />
-        </LinearLayout>
+                    android:layout_marginLeft="@dimen/left_right_margin"
+                    android:layout_marginRight="@dimen/left_right_margin">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:hint="@string/RepeatPassword"
+                        android:layout_height="wrap_content"
+                        android:password="true"
+                        android:id="@+id/repeatpasswordEditText"
+                        android:maxLines="1" 
+                        android:inputType="text"/>
+                </android.support.design.widget.TextInputLayout>
+                <Button
+                    android:layout_marginTop="@dimen/top_margin"
+                    android:layout_marginLeft="@dimen/left_right_margin"
+                    android:layout_marginRight="@dimen/left_right_margin"
+                    android:id="@+id/registerButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Register"
+                    android:onClick="onRegister" />
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
+    
 </RelativeLayout>
