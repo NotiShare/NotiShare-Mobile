@@ -39,7 +39,7 @@ namespace NotiShare.Ws
             connection.OnMessage += ConnectionOnMessage;
             connection.OnError += ConnectionOnError;
             connection.OnClosed += ConnectionOnClosed;
-            connection.Open($"{DefaultUrl}:{port}/{url}?userDeviceId={userDeviceDbId}&userId={userDbId}&type={deviceType}");
+            connection.Open($"{DefaultUrl}:{port}/{url}?user_device_id={userDeviceDbId}&user_id={userDbId}&type={deviceType}");
         }
 
         private void ConnectionOnClosed()
