@@ -1,11 +1,12 @@
 ﻿using System.Diagnostics;
+using NotiShareModel.CrossHelper;
 using Websockets;
 
 namespace NotiShare.Ws
 {
     public class WebSocket
     {
-        private readonly string DefaultUrl = "ws://192.168.100.5";
+        private readonly string DefaultUrl = CrossResourceHelper.GetWsAdress();
 
         private string url;
 

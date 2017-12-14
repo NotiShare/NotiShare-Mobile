@@ -52,7 +52,8 @@ namespace NotiShare.Services
             base.OnNotificationPosted(sbn);
             var preference = PreferenceManager.GetDefaultSharedPreferences(Application.Context);
             string title, text;
-            Drawable icon = null;
+            Drawable smallIcon = null;
+            Drawable bigIcon = null;
             if (preference.GetBoolean(PreferenceKeys.NotificationKey, false))
             {
                 try
@@ -62,34 +63,24 @@ namespace NotiShare.Services
                     var bundle = sbn.Notification.Extras;
                     title = bundle.GetString(Notification.ExtraTitle);
                     text = bundle.GetString(Notification.ExtraText);
-                    
-                    var iconInt = bundle.GetInt(Notification.ExtraSmallIcon);
-                    try
-                    {
-                        var bigIcon = sbn.Notification.GetLargeIcon();
-                        var smallIcon = sbn.Notification.SmallIcon;
-                        
-                        if (bigIcon != null)
-                        {
-                            Log.Debug(DebugConstant, "Got big Icon");
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Log.Debug(DebugConstant, e.StackTrace);
-                    }
 
 
-                var context = CreatePackageContext(pack, PackageContextFlags.IgnoreSecurity);
-                    icon = ContextCompat.GetDrawable(context, iconInt);
 
+                    var sbnAppContext = CreatePackageContext(pack, PackageContextFlags.IgnoreSecurity);
+
+                    var largeIcon = sbn.Notification.GetLargeIcon();
+                    var toolbarIcon = sbn.Notification.SmallIcon;
 
                     await Task.Run(() =>
                     {
 
+                       
+                        bigIcon = largeIcon?.LoadDrawable(sbnAppContext);
+                        smallIcon = toolbarIcon?.LoadDrawable(sbnAppContext);
+
                         var notificationObjet = new NotificationObject
                         {
-                            ImageBase64 = icon != null ? GetImageString(icon) : string.Empty,
+                            ImageBase64 = GetImageString(smallIcon, bigIcon),
                             NotificationText = !string.IsNullOrEmpty(text) ? text : "Empty text",
                             Title = !string.IsNullOrEmpty(title) ? title : "Empty title",
                             DatetimeCreation = DateTime.Now
@@ -117,12 +108,31 @@ namespace NotiShare.Services
 
         }
 
-        private string GetImageString(Drawable drawable)
+        private string GetImageString(Drawable smallDrawable, Drawable bigDrawable)
+        {
+            if (bigDrawable != null)
+            {
+                return GetStringFromDrawable(bigDrawable);
+            }
+            else
+            {
+                if (smallDrawable != null)
+                {
+                    return GetStringFromDrawable(smallDrawable);
+                }
+            }
+            return string.Empty;
+
+        }
+
+
+
+        private string GetStringFromDrawable(Drawable drawable)
         {
             Bitmap bitmap = null;
             try
             {
-                 bitmap = ((BitmapDrawable) drawable).Bitmap;
+                bitmap = ((BitmapDrawable)drawable).Bitmap;
             }
             catch (InvalidCastException e)
             {
@@ -131,12 +141,10 @@ namespace NotiShare.Services
             }
             using (var stream = new MemoryStream())
             {
-                    bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
-                    return Convert.ToBase64String(stream.ToArray());
+                bitmap.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+                return Convert.ToBase64String(stream.ToArray());
             }
-            
         }
-        
 
         public override void OnNotificationRemoved(StatusBarNotification sbn)
         {
